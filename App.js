@@ -2,6 +2,7 @@ import React from 'react';
 
 import Welcome from './screens/Welcome'
 import Login from './screens/Login'
+import Home from './screens/Home'
 import WaterHomeGen from './screens/WaterHomeGen'
 import WaterHomeAdmin from './screens/WaterHomeAdmin'
 import WaterHomeBigAdmin from './screens/WaterHomeBigAdmin'
@@ -91,6 +92,7 @@ const mySwitchNavigator = createSwitchNavigator(
 {
 	Welcome: { screen: Welcome },
 	CreateNewAccount: { screen: CreateNewAccount },
+	Home: { screen: Home },
 	Login: { screen: Login },
 	WaterHomeGen: { screen: myStackNavigatorGen },
 	WaterHomeAdmin: { screen: myStackNavigatorAdmin },

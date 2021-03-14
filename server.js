@@ -50,9 +50,10 @@ app.get('/users/:phonenumber/:password', (req, res) => {
 				else {
 					if(rows[0].password) {
 						bcrypt.compare(req.params.password, rows[0].password, function(err, result) {
-							console.log(req.params.password);
-							console.log(rows[0].password);
-							if(result) {
+							console.log((req.params.password).localeCompare(rows[0].password));
+							// bcrypt compare parameters should be entered password, hash, and function
+							// if(result) {
+							if((req.params.password).localeCompare(rows[0].password)==0){
 								console.log("Password matches!");
 								res.send(rows);
 							} else {

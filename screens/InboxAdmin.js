@@ -26,7 +26,8 @@ export class InboxAdmin extends React.Component {
     };
 
     fetchData = async() => {
-        const response = await fetch ('http://10.0.0.13:3004/incidents');
+        // const response = await fetch ('http://10.0.0.13:3004/incidents');
+        const response = await fetch ('http://localhost:3004/incidents');
         const users = await response.json();
         this.setState({data: users});
         console.log('this is fetching data');

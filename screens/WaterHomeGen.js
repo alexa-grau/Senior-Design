@@ -14,7 +14,9 @@ export class WaterHomeGen extends React.Component {
     };
 
     fetchData = async() => {
-        const response = await fetch ('http://10.0.0.13:3004/reports');
+        console.log("Water report test");
+        // const response = await fetch('http://10.0.0.13:3004/reports');
+        const response = await fetch('http://localhost:3004/reports');
         const users = await response.json();
         this.setState({data: users});
         console.log(this.state.data[0].date);
@@ -24,11 +26,13 @@ export class WaterHomeGen extends React.Component {
     }
 
     componentDidMount() {
+        console.log("Water reports mounting");
         this.fetchData();
     }
 
 
     render() {
+        console.log("Water reports rendering");
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -49,6 +53,14 @@ export class WaterHomeGen extends React.Component {
                 </View>
 
                 <View style={styles.pageContent}>
+                    <View style={styles.subheader}>
+                        <View style={styles.leftHeader}>
+                            <Button style={styles.back}
+                                onPress={() => this.props.navigation.navigate('Home')}>
+                                <Text style={styles.backText}>{'<'} Atrás</Text>
+                            </Button>
+                        </View>
+                    </View>
 
                     <View style={styles.subheader}>
 

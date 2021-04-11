@@ -14,9 +14,10 @@
 
 <body>
     <div class="container mt-5">
+        <h1>View Current Weather Reports</h1>
         <div class="row">
             <div class="col-md-5">
-                <table class="table-bordered table-striped">
+                <table class="col-lg-12 table-bordered table-striped" style="text-align: center;">
                     <thead>
                         <tr>
                           <th colspan="7">
@@ -27,7 +28,7 @@
                             </span>
                           </th>
                         </tr>
-                        <tr>
+                        <tr style="height:75px;">
                             <th>Su</th>
                             <th>Mo</th>
                             <th>Tu</th>
@@ -38,7 +39,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr style="height:65px;">
                             <td class="muted">28</td>
                             <td class="muted">29</td>
                             <td class="muted">30</td>
@@ -47,7 +48,7 @@
                             <td>2</td>
                             <td>3</td>
                         </tr>
-                        <tr>
+                        <tr style="height:65px;">
                             <td>4</td>
                             <td>5</td>
                             <td>6</td>
@@ -56,7 +57,7 @@
                             <td>9</td>
                             <td>10</td>
                         </tr>
-                        <tr>
+                        <tr style="height:65px;">
                             <td>11</td>
                             <td class="btn-primary"><strong>12</strong></td>
                             <td>13</td>
@@ -65,7 +66,7 @@
                             <td>16</td>
                             <td>17</td>
                         </tr>
-                        <tr>
+                        <tr style="height:65px;">
                             <td>18</td>
                             <td>19</td>
                             <td>20</td>
@@ -74,7 +75,7 @@
                             <td>23</td>
                             <td>24</td>
                         </tr>
-                        <tr>
+                        <tr style="height:65px;">
                             <td>25</td>
                             <td>26</td>
                             <td>27</td>
@@ -93,7 +94,7 @@
                     <li><a href="#">Evening</a></li>
                 </ul>
 
-                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height:400px;overflow: scroll">
 
                     <table class="table table-bordered table-striped mb-0">
                       <thead>
@@ -183,13 +184,14 @@
     </div>
     
     <div class="container mt-5">
+        <h1>Create New Weather Report</h1>
         <div class="row">
-            <div class="col-md-3"></div>
+            
             <div class="col-md-3">
                 <input class="form-control" type="file" id="input" accept=".xls,.xlsx"  >
             </div>
             <div class="col-md-2">
-                <button class="btn btn-primary" id="button">Convert</button>
+                <button class="btn btn-primary" id="button">Upload</button>
             </div>
 <div class="col-md-12">
     <pre id="jsondata"></pre>

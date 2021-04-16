@@ -10,6 +10,47 @@ let data=[{
     "abc":"sdef"
 }]
 
+//hardcode button upload
+document.getElementById('upload').addEventListener("click", () => {
+    document.getElementById('mtable').style.display = "";
+});
+
+document.getElementById('submit').addEventListener("click", () => {
+    document.getElementById('mtable').style.display = "none";
+    document.getElementById('success').style.display = "";
+});
+
+document.getElementById('morning').addEventListener("click", () => {
+    document.getElementById('morningtable').style.display = "";
+    document.getElementById('eveningtable').style.display = "none";
+});
+
+document.getElementById('evening').addEventListener("click", () => {
+    document.getElementById('morningtable').style.display = "none";
+    document.getElementById('eveningtable').style.display = "";
+});
+
+document.getElementsByClassName('calLeft').addEventListener("click", () => {
+    if(document.getElementById('april').style.display != "none"){
+        document.getElementById('april').style.display = "none";
+        document.getElementById('march').style.display = "";
+    }
+    else if(document.getElementById('may').style.display != "none"){
+        document.getElementById('may').style.display = "none";
+        document.getElementById('april').style.display = "";
+    }
+});
+
+document.getElementsByClassName('calRight').addEventListener("click", () => {
+    if(document.getElementById('april').style.display != "none"){
+        document.getElementById('april').style.display = "none";
+        document.getElementById('may').style.display = "";
+    }
+    else if(document.getElementById('march').style.display != "none"){
+        document.getElementById('march').style.display = "none";
+        document.getElementById('april').style.display = "";
+    }
+});
 
 
 document.getElementById('button').addEventListener("click", () => {

@@ -10,6 +10,13 @@
         crossorigin="anonymous">
     <title>Convert excel to JSON Object</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+
+    <style>
+        .hover:hover{
+            background-color: #BEBEBE;
+        }
+    </style>
+    
 </head>
 
 <body>
@@ -17,14 +24,15 @@
         <h1>View Current Weather Reports</h1>
         <div class="row">
             <div class="col-md-5">
-                <table class="col-lg-12 table-bordered table-striped" style="text-align: center;">
+
+                <table class="col-lg-12 table-bordered table-striped" id="april" style="text-align: center;">
                     <thead>
                         <tr>
                           <th colspan="7">
                             <span class="btn-group">
-                                <a class="btn"><i class="icon-chevron-left"></i></a>
-                                <a class="btn active">April 2021</a>
-                                <a class="btn"><i class="icon-chevron-right"></i></a>
+                                <a class="calLeft"><</a>
+                                <a class="btn active">May 2021</a>
+                                <a class="calRight">></a>
                             </span>
                           </th>
                         </tr>
@@ -40,61 +48,63 @@
                     </thead>
                     <tbody>
                         <tr style="height:65px;">
-                            <td class="muted">28</td>
-                            <td class="muted">29</td>
-                            <td class="muted">30</td>
-                            <td class="muted">31</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
+                            <td class="hover">28</td>
+                            <td class="hover">29</td>
+                            <td class="hover">30</td>
+                            <td class="hover">31</td>
+                            <td class="hover">1</td>
+                            <td class="hover">2</td>
+                            <td class="hover">3</td>
                         </tr>
                         <tr style="height:65px;">
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
+                            <td class="hover">4</td>
+                            <td class="hover">5</td>
+                            <td class="hover">6</td>
+                            <td class="hover">7</td>
+                            <td class="hover">8</td>
+                            <td class="hover">9</td>
+                            <td class="hover">10</td>
                         </tr>
                         <tr style="height:65px;">
-                            <td>11</td>
-                            <td class="btn-primary"><strong>12</strong></td>
-                            <td>13</td>
-                            <td>14</td>
-                            <td>15</td>
-                            <td>16</td>
-                            <td>17</td>
+                            <td class="hover">11</td>
+                            <td class="btn-primary">12</td>
+                            <td style="color:#D3D3D3">13</td>
+                            <td style="color:#D3D3D3">14</td>
+                            <td style="color:#D3D3D3">15</td>
+                            <td style="color:#D3D3D3">16</td>
+                            <td style="color:#D3D3D3">17</td>
                         </tr>
                         <tr style="height:65px;">
-                            <td>18</td>
-                            <td>19</td>
-                            <td>20</td>
-                            <td>21</td>
-                            <td>22</td>
-                            <td>23</td>
-                            <td>24</td>
+                            <td style="color:#D3D3D3">18</td>
+                            <td style="color:#D3D3D3">19</td>
+                            <td style="color:#D3D3D3">20</td>
+                            <td style="color:#D3D3D3">21</td>
+                            <td style="color:#D3D3D3">22</td>
+                            <td style="color:#D3D3D3">23</td>
+                            <td style="color:#D3D3D3">24</td>
                         </tr>
                         <tr style="height:65px;">
-                            <td>25</td>
-                            <td>26</td>
-                            <td>27</td>
-                            <td>28</td>
-                            <td>29</td>
-                            <td>30</td>
-                            <td class="muted">1</td>
+                            <td style="color:#D3D3D3">25</td>
+                            <td style="color:#D3D3D3">26</td>
+                            <td style="color:#D3D3D3">27</td>
+                            <td style="color:#D3D3D3">28</td>
+                            <td style="color:#D3D3D3">29</td>
+                            <td style="color:#D3D3D3">30</td>
+                            <td style="color:#D3D3D3">1</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
+              
+
             <div class="col-md-7">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#">Morning</a></li>
-                    <li><a href="#">Evening</a></li>
+                    <li class="active"><a href="#" id="morning">Morning</a></li>
+                    <li><a href="#" id="evening">Evening</a></li>
                 </ul>
 
-                <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height:400px;overflow: scroll">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar" id="morningtable" style="height:400px;overflow: scroll">
 
                     <table class="table table-bordered table-striped mb-0">
                       <thead>
@@ -104,6 +114,14 @@
                         </tr>
                       </thead>
                       <tbody style="height:300px;overflow-y: auto;">
+                        <tr>
+                            <th scope="row">Date</th>
+                            <td>2021-04-12</td>
+                          </tr>
+                        <tr>
+                            <th scope="row">Time</th>
+                            <td>06:00:00 AM</td>
+                        </tr>
                         <tr>
                           <th scope="row">Temp.</th>
                           <td>23.1C</td>
@@ -178,7 +196,105 @@
                         </tr> 
                       </tbody>
                     </table>
-                  </div>
+                    <br>
+                    <p><strong>Announcement:</strong> This morning's announcement.</p>
+                </div>
+
+                <div class="table-wrapper-scroll-y my-custom-scrollbar" id="eveningtable" style="height:400px;overflow: scroll;display:none;">
+
+                    <table class="table table-bordered table-striped mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">Indicator</th>
+                          <th scope="col">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody style="height:300px;overflow-y: auto;">
+                        <tr>
+                            <th scope="row">Date</th>
+                            <td>2021-04-12</td>
+                          </tr>
+                        <tr>
+                            <th scope="row">Time</th>
+                            <td>06:00:00 PM</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Temp.</th>
+                          <td>20.2C</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Temperature High</th>
+                          <td>20.2C</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Temperature Low</th>
+                          <td>18.5C</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Humidity</th>
+                          <td>57</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Heat Index</th>
+                          <td>23.4</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Cold Wind</th>
+                          <td>23.1</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Dew Point</th>
+                            <td>14.1</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Barometer</th>
+                            <td>1012.6</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Wind Speed</th>
+                            <td>1.8</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Wind Direction</th>
+                            <td>ESE</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">High Wind Speed</th>
+                            <td>1.8</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">10 Min. Medium Wind</th>
+                            <td>698</td>
+                        </tr> 
+                        <tr>
+                            <th scope="row">Rain Rate</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Day Rain</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Rain of the Month</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Year Rain</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">UV Index</th>
+                            <td>1.5</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">High UV Index</th>
+                            <td>---</td>
+                        </tr> 
+                      </tbody>
+                    </table>
+                    <br>
+                    <p><strong>Announcement:</strong> This evening's announcement.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -191,14 +307,117 @@
                 <input class="form-control" type="file" id="input" accept=".xls,.xlsx"  >
             </div>
             <div class="col-md-2">
-                <button class="btn btn-primary" id="button">Upload</button>
+                <!--<button class="btn btn-primary" id="button">Upload</button>-->
+                <button class="btn btn-primary" id="upload">Upload</button>
             </div>
-<div class="col-md-12">
-    <pre id="jsondata"></pre>
-</div>
+          </div>
+<div>
+    <!--<pre id="jsondata"></pre>-->
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12" id="mtable" style="display:none">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar" style="height:400px;overflow: scroll">
+
+                <table class="table table-bordered table-striped mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Indicator</th>
+                      <th scope="col">Value</th>
+                    </tr>
+                  </thead>
+                  <tbody style="height:300px;overflow-y: auto;">
+                    <tr>
+                      <th scope="row">Temp.</th>
+                      <td>23.1C</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Temperature High</th>
+                      <td>23.1C</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Temperature Low</th>
+                      <td>22.8C</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Humidity</th>
+                      <td>57</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Heat Index</th>
+                      <td>23.4</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Cold Wind</th>
+                      <td>23.1</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Dew Point</th>
+                        <td>14.1</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Barometer</th>
+                        <td>1012.6</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Wind Speed</th>
+                        <td>1.8</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Wind Direction</th>
+                        <td>ESE</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">High Wind Speed</th>
+                        <td>1.8</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10 Min. Medium Wind</th>
+                        <td>698</td>
+                    </tr> 
+                    <tr>
+                        <th scope="row">Rain Rate</th>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Day Rain</th>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Rain of the Month</th>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Year Rain</th>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">UV Index</th>
+                        <td>1.5</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">High UV Index</th>
+                        <td>---</td>
+                    </tr> 
+                  </tbody>
+                </table>
+              </div>
+
+              
+              <br>
+              <textarea id="announcement" name="announcement" rows="5" cols="150" placeholder="Announcements"></textarea>
+              <button class="btn btn-primary" id="submit">Submit</button>
         </div>
-    </div>
+        <div id="success" style="display:none">
+            <p>Success! Weather report has been uploaded.</p>
+        </div>
+      </div>
+    <br>
+    <br>
+</div>
+</div>
+</div>
+
 </body>
 <script src="excel.js"></script>
-
 </html>

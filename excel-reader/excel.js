@@ -13,10 +13,16 @@ let data=[{
 //hardcode button upload
 document.getElementById('upload').addEventListener("click", () => {
     document.getElementById('mtable').style.display = "";
+    document.getElementById('indicatorChecklist').style.display = "";
+    document.getElementById('newAnnouncement').style.display = "";
+    document.getElementById('success').style.display ="none";
 });
 
 document.getElementById('submit').addEventListener("click", () => {
+    document.getElementById('announcement').value = "";
     document.getElementById('mtable').style.display = "none";
+    document.getElementById('indicatorChecklist').style.display = "none";
+    document.getElementById('newAnnouncement').style.display = "none";
     document.getElementById('success').style.display = "";
 });
 
@@ -30,27 +36,133 @@ document.getElementById('evening').addEventListener("click", () => {
     document.getElementById('eveningtable').style.display = "";
 });
 
-document.getElementsByClassName('calLeft').addEventListener("click", () => {
-    if(document.getElementById('april').style.display != "none"){
-        document.getElementById('april').style.display = "none";
-        document.getElementById('march').style.display = "";
+function validate(){
+    if(!document.getElementById('temp').checked){
+        document.getElementById('temp1').style.display = "none";
     }
-    else if(document.getElementById('may').style.display != "none"){
-        document.getElementById('may').style.display = "none";
-        document.getElementById('april').style.display = "";
+    else{
+        document.getElementById('temp1').style.display = "";
     }
-});
 
-document.getElementsByClassName('calRight').addEventListener("click", () => {
-    if(document.getElementById('april').style.display != "none"){
-        document.getElementById('april').style.display = "none";
-        document.getElementById('may').style.display = "";
+    if(!document.getElementById('tempHigh').checked){
+        document.getElementById('tempHigh1').style.display = "none";
     }
-    else if(document.getElementById('march').style.display != "none"){
-        document.getElementById('march').style.display = "none";
-        document.getElementById('april').style.display = "";
+    else{
+        document.getElementById('tempHigh1').style.display = "";
     }
-});
+
+    if(!document.getElementById('tempLow').checked){
+        document.getElementById('tempLow1').style.display = "none";
+    }
+    else{
+        document.getElementById('tempLow1').style.display = "";
+    }
+
+    if(!document.getElementById('hum').checked){
+        document.getElementById('hum1').style.display = "none";
+    }
+    else{
+        document.getElementById('hum1').style.display = "";
+    }
+
+    if(!document.getElementById('heatIndex').checked){
+        document.getElementById('heatIndex1').style.display = "none";
+    }
+    else{
+        document.getElementById('heatIndex1').style.display = "";
+    }
+
+    if(!document.getElementById('coldWind').checked){
+        document.getElementById('coldWind1').style.display = "none";
+    }
+    else{
+        document.getElementById('coldWind1').style.display = "";
+    }
+
+    if(!document.getElementById('dewPoint').checked){
+        document.getElementById('dewPoint1').style.display = "none";
+    }
+    else{
+        document.getElementById('dewPoint1').style.display = "";
+    }
+    
+    if(!document.getElementById('barometer').checked){
+        document.getElementById('barometer1').style.display = "none";
+    }
+    else{
+        document.getElementById('barometer1').style.display = "";
+    }
+
+    if(!document.getElementById('windSpeed').checked){
+        document.getElementById('windSpeed1').style.display = "none";
+    }
+    else{
+        document.getElementById('windSpeed1').style.display = "";
+    }
+
+    if(!document.getElementById('windDir').checked){
+        document.getElementById('windDir1').style.display = "none";
+    }
+    else{
+        document.getElementById('windDir1').style.display = "";
+    }
+
+    if(!document.getElementById('highWindSpeed').checked){
+        document.getElementById('highWindSpeed1').style.display = "none";
+    }
+    else{
+        document.getElementById('highWindSpeed1').style.display = "";
+    }
+
+    if(!document.getElementById('tenMinWind').checked){
+        document.getElementById('tenMinWind1').style.display = "none";
+    }
+    else{
+        document.getElementById('tenMinWind1').style.display = "";
+    }
+
+    if(!document.getElementById('rainRate').checked){
+        document.getElementById('rainRate1').style.display = "none";
+    }
+    else{
+        document.getElementById('rainRate1').style.display = "";
+    }
+
+    if(!document.getElementById('dayRain').checked){
+        document.getElementById('dayRain1').style.display = "none";
+    }
+    else{
+        document.getElementById('dayRain1').style.display = "";
+    }
+
+    if(!document.getElementById('rainMonth').checked){
+        document.getElementById('rainMonth1').style.display = "none";
+    }
+    else{
+        document.getElementById('rainMonth1').style.display = "";
+    }
+
+    if(!document.getElementById('rainYear').checked){
+        document.getElementById('rainYear1').style.display = "none";
+    }
+    else{
+        document.getElementById('rainYear1').style.display = "";
+    }
+
+    if(!document.getElementById('uv').checked){
+        document.getElementById('uv1').style.display = "none";
+    }
+    else{
+        document.getElementById('uv1').style.display = "";
+    }
+
+    if(!document.getElementById('uvHigh').checked){
+        document.getElementById('uvHigh1').style.display = "none";
+    }
+    else{
+        document.getElementById('uvHigh1').style.display = "";
+    }
+}
 
 
 document.getElementById('button').addEventListener("click", () => {
@@ -129,3 +241,4 @@ const renameKey = (object, key, newKey) => {
 }
 
 const clone = (obj) => Object.assign({}, obj);
+

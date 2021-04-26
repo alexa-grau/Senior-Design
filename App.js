@@ -21,6 +21,9 @@ import InboxAdmin from './screens/InboxAdmin'
 import RecordMessage from './screens/RecordMessage'
 import GiveAdminRights from './screens/GiveAdminRights'
 import ViewMailMessage from './screens/ViewMailMessage'
+import WeatherHome from './screens/WeatherHome'
+import WeatherDay from './screens/WeatherDay'
+import WeatherReport from './screens/WeatherReport'
 
 import { createStackNavigator } from 'react-navigation-stack';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
@@ -35,6 +38,9 @@ const myStackNavigatorGen = createStackNavigator(
 	InboxGen: InboxGen,
 	ViewMailMessage: ViewMailMessage,
 	RecordMessage: RecordMessage,
+	WeatherHome: WeatherHome,
+	WeatherDay: WeatherDay,
+	WeatherReport: WeatherReport,
 },
 {
 	initialRouteName: 'WaterHomeGen',
@@ -56,6 +62,9 @@ const myStackNavigatorAdmin = createStackNavigator(
 	ViewIndividualMessage: ViewIndividualMessage,
 	CreateNewWaterQualityReportPub: CreateNewWaterQualityReportPub,
 	RecordMessage: RecordMessage,
+	WeatherHome: WeatherHome,
+	WeatherDay: WeatherDay,
+	WeatherReport: WeatherReport,
 },
 {
 	initialRouteName: 'WaterHomeAdmin',
@@ -78,6 +87,9 @@ const myStackNavigatorBigAdmin = createStackNavigator(
 	CreateNewWaterQualityReportPub: CreateNewWaterQualityReportPub,
 	RecordMessage: RecordMessage,
 	GiveAdminRights: GiveAdminRights,
+	WeatherHome: WeatherHome,
+	WeatherDay: WeatherDay,
+	WeatherReport: WeatherReport,
 },
 {
 	initialRouteName: 'WaterHomeBigAdmin',
@@ -97,6 +109,9 @@ const mySwitchNavigator = createSwitchNavigator(
 	WaterHomeGen: { screen: myStackNavigatorGen },
 	WaterHomeAdmin: { screen: myStackNavigatorAdmin },
 	WaterHomeBigAdmin: { screen: myStackNavigatorBigAdmin },
+	WeatherHome: { screen: WeatherHome },
+	WeatherDay: { screen: WeatherDay },
+	WeatherReport: { screen: WeatherReport },
 },
 {
 	initialRouteName: 'Welcome'

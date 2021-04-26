@@ -82,7 +82,7 @@ export class Login extends React.Component {
                                         {
                                             // this._saveInfo();
                                             console.log("General user");
-                                            this.props.navigation.navigate('Home', { admin:false, bigAdmin:false });
+                                            this.props.navigation.navigate({ admin:false, bigAdmin:false });
                                         }
                                         else
                                         {

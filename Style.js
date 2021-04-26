@@ -594,13 +594,25 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
 
-
-
-
     form: {
         height: 550,
         justifyContent: 'center',
         margin: 50
+    },
+
+    weatherForm: {
+        justifyContent: 'center',
+        margin: 50,
+    },
+
+    tableText: {
+        fontSize: 18,
+        padding: 10
+    },
+
+    adminWeatherMessage: {
+        fontSize: 18,
+        marginTop: 5
     },
 
     title: {
@@ -618,6 +630,11 @@ export default StyleSheet.create({
         marginTop: 20,
         marginLeft: 70,
         marginRight: 70
+    },
+
+    blueButtonFull: {
+        backgroundColor: '#4a8eff',
+        marginTop: 20
     },
 
     link: {
@@ -790,8 +807,15 @@ export default StyleSheet.create({
 
     fromText: {
         fontSize: 20,
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
+
+    bold: {
+        fontWeight: "bold",
+        fontSize: 18,
+        marginTop: 20
+    },
+
     row: {
 		flexDirection: 'row',
 		justifyContent: 'space-evenly'

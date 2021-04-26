@@ -60,7 +60,7 @@ export class Home extends React.Component {
                             </Button>
 
                             <Button full rounded success style={[styles.blueButton, {marginTop: 20}]}
-                                onPress={() => this.props.navigation.navigate('CreateNewAccount')}> 
+                                onPress={() => this.props.navigation.navigate('WeatherHome')}> 
                                 <Text style={styles.buttonText}>Clima</Text>
                             </Button>
                         </Form>

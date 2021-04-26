@@ -56,7 +56,7 @@ export class WaterHomeGen extends React.Component {
                     <View style={styles.subheader}>
                         <View style={styles.leftHeader}>
                             <Button style={styles.back}
-                                onPress={() => this.props.navigation.navigate('Home')}>
+                                onPress={() => this.props.navigation.navigate('Home', { admin:false, bigAdmin:false })}>
                                 <Text style={styles.backText}>{'<'} Atrás</Text>
                             </Button>
                         </View>

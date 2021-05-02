@@ -11,7 +11,7 @@ LocaleConfig.locales['es'] = {
     dayNamesShort: ['D','L','M','M','J','V','S'],
     today: 'Hoy'
   };
-  LocaleConfig.defaultLocale = 'es';
+LocaleConfig.defaultLocale = 'es';
 
 export class WeatherHome extends React.Component {
     static navigationOptions = {
@@ -60,6 +60,7 @@ export class WeatherHome extends React.Component {
                             monthFormat={"MMMM 'de' yyyy"}
                             maxDate={dateString}
                             onDayPress={(day) => {this.props.navigation.navigate('WeatherDay', { date:day })}}
+                            // onDayPress={(day) => {getDayReports(day)}}
                             theme={{
                                 todayTextColor: '#4a8eff',
                                 arrowColor: '#4a8eff',

@@ -250,3 +250,41 @@ app.get('/mail/:phoneNumber', (req, res) => {
 			console.log(err);
 	});
 });
+
+//get all weather reports
+app.get('/weather', (req, res) => {
+
+	var sql = 'SELECT * FROM weather';
+	con.query(sql, (err, rows, fields) => {
+		if (!err)
+			res.send(rows);
+		else
+			console.log(err);
+	});
+});
+
+//get all weather reports from one day
+app.get('/weather/:year/:month/:day', (req, res) => {
+	var date = req.params.year+"-"+req.params.month+"-"+req.params.day;
+	console.log(date);
+	var sql = 'SELECT * FROM weather WHERE date BETWEEN ? AND ?;';
+	con.query(sql, [date, date], (err, rows, fields) => {
+		if (!err)
+			res.send(rows);
+		else
+			console.log(err);
+	});
+});
+
+//get one weather report
+app.get('/weather/:id', (req, res) => {
+	// var date = req.params.year+"-"+req.params.month+"-"+req.params.day;
+	var sql = 'SELECT * FROM weather WHERE id = ?;';
+	con.query(sql, [parseInt(req.params.id)], (err, rows, fields) => {
+		if (!err)
+			res.send(rows);
+		else
+			console.log(err);
+	});
+});
+

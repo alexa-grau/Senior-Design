@@ -13,7 +13,6 @@ export class WeatherReport extends React.Component {
         const params = this.props.navigation.state.params;
         console.log(params);
         let date = params.date;
-        console.log("test", date);
         let timeString='Tarde';
         // let backButton= {this.props.navigation.navigate('WeatherDay', {date:date})};
         if(params.morning){

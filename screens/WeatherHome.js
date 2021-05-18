@@ -23,10 +23,7 @@ export class WeatherHome extends React.Component {
         // once database set up, pull the latest report in the database
         let date = new Date();
         let dateString = date.toISOString().slice(0,10);
-        let day = date.getDate().toString();
-        let month = date.getMonth()+1;
-        let year = date.getFullYear();
-        let dateOb = {"dateString":dateString, "day":day, "month":month, "year":year};
+        console.log("datestring:", dateString);
 
         return (
             <View style={styles.container}>
@@ -58,7 +55,8 @@ export class WeatherHome extends React.Component {
                     <View style={styles.weatherForm}>
                         <Calendar 
                             monthFormat={"MMMM 'de' yyyy"}
-                            maxDate={dateString}
+                            // maxDate={dateString}
+                            maxDate={'2021-05-03'}
                             onDayPress={(day) => {this.props.navigation.navigate('WeatherDay', { date:day })}}
                             // onDayPress={(day) => {getDayReports(day)}}
                             theme={{
@@ -70,14 +68,14 @@ export class WeatherHome extends React.Component {
                             }}
                         />
                         <Button full rounded success style={styles.blueButtonFull}
-                            onPress={() => this.props.navigation.navigate('WeatherReport', { date:dateOb, morning:true, latest:true })}>
+                            onPress={() => this.props.navigation.navigate('WeatherReportRecent')}>
                             <Text style={styles.buttonText}>Último Informe del Clima</Text>
                         </Button>
                         
                     </View>
                     <Button style={styles.link}
                         onPress={() => Linking.openURL('https://chat.whatsapp.com/BoW628hRShe5orkVmwG6Xc')}>
-                        <Text style={styles.incidentButton}>{'Contáctanos sobre el clima por WhatsApp aquí'}</Text>
+                        <Text style={styles.loginPageButtons}>{'Contáctanos sobre el clima por WhatsApp aquí'}</Text>
                     </Button>
                 </View>
 

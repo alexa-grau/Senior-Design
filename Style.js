@@ -109,6 +109,17 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
 
+    cancelNewAccountButton: {
+        padding: 12,
+        borderRadius: 20,
+        backgroundColor: 'red',
+        width: 118,
+        borderColor: '#707070',
+        borderWidth: 1.25,
+        alignItems: 'center',
+        marginLeft: 12
+    },
+
     hm: {
         height: 130,
         marginTop: 15,

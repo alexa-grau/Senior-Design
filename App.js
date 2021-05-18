@@ -24,6 +24,7 @@ import ViewMailMessage from './screens/ViewMailMessage'
 import WeatherHome from './screens/WeatherHome'
 import WeatherDay from './screens/WeatherDay'
 import WeatherReport from './screens/WeatherReport'
+import WeatherReportRecent from './screens/WeatherReportRecent'
 
 import { createStackNavigator } from 'react-navigation-stack';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
@@ -41,6 +42,7 @@ const myStackNavigatorGen = createStackNavigator(
 	WeatherHome: WeatherHome,
 	WeatherDay: WeatherDay,
 	WeatherReport: WeatherReport,
+	WeatherReportRecent: WeatherReportRecent,
 },
 {
 	initialRouteName: 'WaterHomeGen',
@@ -65,6 +67,7 @@ const myStackNavigatorAdmin = createStackNavigator(
 	WeatherHome: WeatherHome,
 	WeatherDay: WeatherDay,
 	WeatherReport: WeatherReport,
+	WeatherReportRecent: WeatherReportRecent,
 },
 {
 	initialRouteName: 'WaterHomeAdmin',
@@ -90,6 +93,7 @@ const myStackNavigatorBigAdmin = createStackNavigator(
 	WeatherHome: WeatherHome,
 	WeatherDay: WeatherDay,
 	WeatherReport: WeatherReport,
+	WeatherReportRecent: WeatherReportRecent,
 },
 {
 	initialRouteName: 'WaterHomeBigAdmin',
@@ -112,6 +116,7 @@ const mySwitchNavigator = createSwitchNavigator(
 	WeatherHome: { screen: WeatherHome },
 	WeatherDay: { screen: WeatherDay },
 	WeatherReport: { screen: WeatherReport },
+	WeatherReportRecent: { screen: WeatherReportRecent },
 },
 {
 	initialRouteName: 'Welcome'

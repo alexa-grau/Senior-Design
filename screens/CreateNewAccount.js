@@ -382,12 +382,16 @@ export default class CreateNewAccount extends React.Component {
   							checked={this.state.checked}
 							onPress={() => this.setState({checked: !this.state.checked, requestedAdminRights: !this.state.requestedAdminRights})}
 						/>
-
+						<View style={{ flexDirection: 'row' }}>
 						<TouchableOpacity style={styles.newAccountButton}
 							onPress={() => this.addNewUser () }>
 							<Text style={{color: 'white', fontSize: 23}}>Enviar</Text>
 						</TouchableOpacity>
-
+						<TouchableOpacity style={styles.cancelNewAccountButton}
+							onPress={() => this.props.navigation.navigate('Welcome') }>
+							<Text style={{color: 'white', fontSize: 23}}>Cancelar</Text>
+						</TouchableOpacity>
+						</View>
 					</View>
 				</View>
 

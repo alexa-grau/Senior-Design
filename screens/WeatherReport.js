@@ -9,28 +9,44 @@ export class WeatherReport extends React.Component {
         title: 'WeatherReport',
     };
 
+    state = {
+        date: "",
+        tableData: [],
+        announcement: "",
+        time: ""
+    };
+
+    fetchData = async() => {
+        let id = this.props.navigation.state.params.id;
+        console.log("ID",id);
+        // const response = await fetch('http://10.0.0.13:3004/reports');
+        const response = await fetch('http://localhost:3004/weather/'+id);
+        const weatherReports = await response.json();
+        console.log("Report pulled:", weatherReports);
+        this.setState({date: weatherReports[0].date});
+        this.setState({time: weatherReports[0].time});
+        this.setState({announcement: weatherReports[0].announcement});
+
+        // parse and convert weather report to an array
+        let info = JSON.parse(weatherReports[0].weatherinfo);
+        let infoData = [];
+        for (var key in info) {
+            if (info.hasOwnProperty(key)) infoData.push([key, info[key]]);
+        }
+        this.setState({tableData: infoData});
+        // console.log("Announcement", this.state.announcement);
+    }
+
+    componentDidMount() {
+        console.log("Weather reports mounting");
+        this.fetchData();
+    }
+
     render() {
         const params = this.props.navigation.state.params;
         console.log(params);
         let date = params.date;
-        let timeString='Tarde';
-        // let backButton= {this.props.navigation.navigate('WeatherDay', {date:date})};
-        if(params.morning){
-            timeString='Mañana';
-        }
-        // if(params.morning){
-        //     backButton=this.props.navigation.navigate('WeatherHome');
-        // }
 
-        const tableData = [
-            ['Temp.','20.2°C'],
-            ['Temp. Alta','20.2°C'],
-            ['Temp. Baja','18.5°C'],
-            ['Hum','57'],
-            ['Índice de calor','23.4'],
-        ];
-        const reportMessage = 'El clima es agradable hoy. Más texto aquí. Hace sol.';
-        
         return (
             <View style={styles.container}>
                 <View style={styles.headerHome}>
@@ -58,13 +74,13 @@ export class WeatherReport extends React.Component {
 
                     <Text style={styles.waterTitle}>{date.day}/{date.month}/{date.year}</Text>
                     <View style={styles.weatherForm}>
-                        <Text style={styles.subTitle}>{timeString}</Text>
+                        <Text style={styles.subTitle}>{this.state.time}</Text>
                         <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}} >
-                            <Rows data={tableData} textStyle={styles.tableText} />
+                            <Rows data={this.state.tableData} textStyle={styles.tableText} />
                         </Table>
                         <Text style={styles.bold}>Del administrador:</Text>
-                        <Text style={styles.adminWeatherMessage}>{reportMessage}{'\n'}</Text>
-                        <Text onPress={() => Linking.openURL('https://chat.whatsapp.com/BoW628hRShe5orkVmwG6Xc')} style={styles.incidentButton}>¿Tiene preguntas sobre este informe meteorológico? Unirse a nuestro grupo de WhatsApp aquí.</Text>
+                        <Text style={styles.adminWeatherMessage}>{this.state.announcement}{'\n'}</Text>
+                        <Text onPress={() => Linking.openURL('https://chat.whatsapp.com/BoW628hRShe5orkVmwG6Xc')} style={styles.loginPageButtons}>¿Tiene preguntas sobre este informe meteorológico? Unirse a nuestro grupo de WhatsApp aquí.</Text>
                     </View>
                 </View>
 

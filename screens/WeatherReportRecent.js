@@ -1,35 +1,40 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity, Linking, FlatList } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
+import { Table, Rows } from 'react-native-table-component'
 import { Form, Button } from "native-base"
 import styles from '../Style'
 
-export class WeatherDay extends React.Component {
+export class WeatherReportRecent extends React.Component {
     static navigationOptions = {
-        title: 'WeatherDay',
+        title: 'WeatherReportRecent',
     };
 
     state = {
-        data: [],
+        date: "",
+        tableData: [],
+        announcement: "",
+        time: ""
     };
 
     fetchData = async() => {
-        let date = this.props.navigation.state.params.date;
-        let dateString = date.year;
-        if(date.month < 10){
-            dateString+='/0'+date.month;
-        } else {
-            dateString+='/'+date.month;
-        }
-        if(date.day < 10){
-            dateString+='/0'+date.day;
-        } else {
-            dateString+='/'+date.day;
-        }
         // const response = await fetch('http://10.0.0.13:3004/reports');
-        const response = await fetch('http://localhost:3004/weather/'+dateString);
+        const response = await fetch('http://localhost:3004/weather/recent/report');
         const weatherReports = await response.json();
-        this.setState({data: weatherReports});
-        console.log(this.state.data);
+
+        // read date and time to day/month/year format
+        let date = new Date(weatherReports[0].date);
+        let dateString = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+        this.setState({date: dateString});
+        this.setState({time: weatherReports[0].time});
+        this.setState({announcement: weatherReports[0].announcement});
+
+        // parse and convert weather report to an array
+        let info = JSON.parse(weatherReports[0].weatherinfo);
+        let infoData = [];
+        for (var key in info) {
+            if (info.hasOwnProperty(key)) infoData.push([key, info[key]]);
+        }
+        this.setState({tableData: infoData});
     }
 
     componentDidMount() {
@@ -38,13 +43,6 @@ export class WeatherDay extends React.Component {
     }
 
     render() {
-        const params = this.props.navigation.state.params;
-        let date = params.date;
-        let noReportText = <Text></Text>;
-        if(this.state.data.length < 1){
-            noReportText = <Text>No hay informes meteorológicos disponibles</Text>;
-        }
-
         return (
             <View style={styles.container}>
                 <View style={styles.headerHome}>
@@ -70,22 +68,19 @@ export class WeatherDay extends React.Component {
                         <Text style={styles.backText}>{'<'} Atrás</Text>
                     </Button>
 
-                    <Text style={styles.waterTitle}>Clima</Text>
+                    <Text style={styles.waterTitle}>{this.state.date}</Text>
                     <View style={styles.weatherForm}>
-                        <Text style={styles.subTitle}>{date.day}/{date.month}/{date.year}</Text>
-                        <Form>
-                            <FlatList data={this.state.data} 
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item, index }) => 
-                                <Button full rounded success style={styles.blueButton} onPress={
-                                    () => this.props.navigation.navigate('WeatherReport', {date: date, id: item.id })}>
-                                    <Text style={styles.buttonText}>{item.time}</Text>
-                                </Button>}
-                            />
-                            {noReportText}
-                        </Form>
+                        <Text style={styles.subTitle}>{this.state.time}</Text>
+                        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}} >
+                            <Rows data={this.state.tableData} textStyle={styles.tableText} />
+                        </Table>
+                        <Text style={styles.bold}>Del administrador:</Text>
+                        <Text style={styles.adminWeatherMessage}>{this.state.announcement}{'\n'}</Text>
+                        <Text onPress={() => Linking.openURL('https://chat.whatsapp.com/BoW628hRShe5orkVmwG6Xc')} style={styles.loginPageButtons}>¿Tiene preguntas sobre este informe meteorológico? Unirse a nuestro grupo de WhatsApp aquí.</Text>
                     </View>
                 </View>
+
+                
 
                 <View style={styles.footer}>
                 </View>
@@ -96,4 +91,4 @@ export class WeatherDay extends React.Component {
     }
 }
 
-export default WeatherDay;
+export default WeatherReportRecent;

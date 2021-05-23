@@ -36,15 +36,15 @@ document.getElementById('submit').addEventListener("click", () => {
     console.log("sent");
 });
 
-document.getElementById('morning').addEventListener("click", () => {
-    document.getElementById('morningtable').style.display = "";
-    document.getElementById('eveningtable').style.display = "none";
-});
+// document.getElementById('morning').addEventListener("click", () => {
+//     document.getElementById('morningtable').style.display = "";
+//     document.getElementById('eveningtable').style.display = "none";
+// });
 
-document.getElementById('evening').addEventListener("click", () => {
-    document.getElementById('morningtable').style.display = "none";
-    document.getElementById('eveningtable').style.display = "";
-});
+// document.getElementById('evening').addEventListener("click", () => {
+//     document.getElementById('morningtable').style.display = "none";
+//     document.getElementById('eveningtable').style.display = "";
+// });
 
 function validate(){
     if(!document.getElementById('temp').checked){

@@ -124,16 +124,10 @@
             <div class="col-md-7">
                 <div id="viewReports">
                   <h5>Seleccionar Hora:</h5>
-                  <button class="btn btn-outline-primary" id="morning">06:00</button>
-                  <button class="btn btn-outline-primary" id="evening">18:00</button>
-                  <!--
-                    <li class="active nav-item"><a href="#" id="morning">06:00</a></li>
-                    <li class="nav-item"><a href="#" id="evening">18:00</a></li>
-                    <li class="nav-item"><a href="#" id="additionalReports">20:00</a></li>
-                  -->
+                  <div id="timeButtons"></div>
                 </div>
 
-                <div class="table-wrapper-scroll-y my-custom-scrollbar" id="morningtable" style="height:450px;overflow: scroll">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar" id="displayTable" style="height:450px;overflow: scroll">
 
                     <table class="table table-bordered table-striped mb-0">
                       <thead>
@@ -142,203 +136,20 @@
                           <th scope="col">Valor</th>
                         </tr>
                       </thead>
-                      <tbody style="height:300px;overflow-y: auto;">
+                      <tbody id="displayTableBody" style="height:300px;overflow-y: auto;">
                         <tr>
                             <th scope="row">Fecha</th>
-                            <td id="morningReportDate">2021-04-12</td>
+                            <td id="displayTableDate"></td>
                           </tr>
                         <tr>
                             <th scope="row">Hora</th>
-                            <td>06:00</td>
+                            <td id="displayTableTime"></td>
                         </tr>
-                        <tr>
-                          <th scope="row">Barómetro - in Hg</th>
-                          <td id="morningReportTemp">23</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Temp - °C</th>
-                          <td id="morningReportTempHigh">23</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Temp. Alta - °C</th>
-                          <td id="morningReportTempLow">22</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Temp. Baja - °C</th>
-                          <td id="morningReportHum">57</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Hum - %</th>
-                          <td id="morningReportHeatIndex">23.4</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Punto de rocío - °C</th>
-                          <td id="morningReportColdWind">23.1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Bulbo Húmedo - °C</th>
-                            <td id="morningReportDewPoint">14.1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Velocidad del viento - km/h</th>
-                            <td id="morningReportBar">1012.6</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Dirección del viento</th>
-                            <td id="morningReportWindSpeed">1.8</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Viento Corriente - km</th>
-                            <td>ESE</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Alta velocidad del viento - km/h</th>
-                            <td id="morningReportHighWind">1.8</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Alta Dirección del viento</th>
-                            <td id="morningReportTenMinWind">698</td>
-                        </tr> 
-                        <tr>
-                            <th scope="row">Viento Frío - °C</th>
-                            <td id="morningReportRain">0</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Índice de calor - °C</th>
-                            <td id="morningReportDayRain">0</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">THW Index - °C</th>
-                            <td id="morningReportMonthRain">0</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Lluvia - mm</th>
-                            <td id="morningReportYearRain">0</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Tasa de lluvia - mm/h</th>
-                            <td id="morningReportUV">1.5</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">ET - mm</th>
-                            <td id="morningReportUVHigh">---</td>
-                        </tr> 
-                        <tr>
-                          <th scope="row">Días-grado de calentamiento</th>
-                          <td id="morningReportUVHigh">---</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Días-grado de enfriamiento</th>
-                          <td id="morningReportUVHigh">---</td>
-                        </tr> 
+                        <!-- This is where we loop through weather info -->
                       </tbody>
                     </table>
                     <br>
-                    <p><strong>Announcement:</strong> This morning's announcement.</p>
-                </div>
-
-                <div class="table-wrapper-scroll-y my-custom-scrollbar" id="eveningtable" style="height:450px;overflow: scroll;display:none;">
-
-                    <table class="table table-bordered table-striped mb-0">
-                      <thead>
-                        <tr>
-                          <th scope="col">Indicador</th>
-                          <th scope="col">Valor</th>
-                        </tr>
-                      </thead>
-                      <tbody style="height:300px;overflow-y: auto;">
-                        <tr>
-                            <th scope="row">Fecha</th>
-                            <td id="eveningReportDate">2021-04-12</td>
-                          </tr>
-                        <tr>
-                            <th scope="row">Hora</th>
-                            <td>18:00</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Barómetro - in Hg</th>
-                          <td id="eveningReportTemp">20</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Temp - °C</th>
-                          <td id="eveningReportTempHigh">20</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Temp. Alta - °C</th>
-                          <td id="eveningReportTempLow">18</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Temp. Baja - °C</th>
-                          <td id="eveningReportHum">57</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Hum - %</th>
-                          <td id="eveningReportHeatIndex">23.4</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Punto de rocío - °C</th>
-                          <td id="eveningReportColdWind">23.1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Bulbo Húmedo - °C</th>
-                            <td id="eveningReportDewPoint">14.1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Velocidad del viento - km/h</th>
-                            <td id="eveningReportBar">1012.6</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Dirección del viento</th>
-                            <td id="eveningReportWindSpeed">1.8</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Viento Corriente - km</th>
-                            <td>ESE</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Alta velocidad del viento - km/h</th>
-                            <td id="eveningReportHighWind">1.8</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Alta Dirección del viento</th>
-                            <td id="eveningReportTenMinWind">698</td>
-                        </tr> 
-                        <tr>
-                            <th scope="row">Viento Frío - °C</th>
-                            <td id="eveningReportRain">0</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Índice de calor - °C</th>
-                            <td id="eveningReportDayRain">0</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">THW Index - °C</th>
-                            <td id="eveningReportMonthRain">0</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Lluvia - mm</th>
-                            <td id="eveningReportYearRain">0</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Tasa de lluvia - mm/h</th>
-                            <td id="eveningReportUV">1.5</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">ET - mm</th>
-                            <td id="eveningReportUVHigh">---</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Días-grado de calentamiento</th>
-                          <td id="eveningReportUVHigh">---</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Días-grado de enfriamiento</th>
-                          <td id="eveningReportUVHigh">---</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <br>
-                    <p><strong>Announcement:</strong> This evening's announcement.</p>
+                    <p id="displayTableAnnouncement"></p>
                 </div>
             </div>
         </div>

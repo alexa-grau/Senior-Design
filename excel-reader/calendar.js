@@ -86,6 +86,7 @@ function showCalendar(month, year) {
 function hoverableCells() {
     document.querySelectorAll('.hover').forEach(item => {
         item.addEventListener('click', () => {
+            document.getElementById("timeButtons").innerHTML=""; // kill previous buttons
             //remove any bg-primary cells
             document.querySelectorAll('.hover').forEach(hoverable => {
                 hoverable.classList.remove('bg-primary');
@@ -113,63 +114,56 @@ function displayReports(displayDay) {
     let displayDate = (displayYear + "-" + displayMonth + "-" + displayDay);
     let URL = "http://localhost:3004/weather/"+displayYear+"/"+displayMonth+"/"+displayDay;
     console.log("URL:", URL);
+    let buttonDiv = document.getElementById("timeButtons");
     $.get(URL, function(data){
-        console.log("Data: " + data[0].date);
+        if(data.length==0){
+            // hide table
+            let table = document.getElementById("displayTableBody");
+            console.log("child count", table.childElementCount);
+            table.style.display = 'none';
+            // display message?
+        } else{
+            document.getElementById("displayTableBody").style.display = '';
+        }
+        data.forEach(element => 
+            {console.log(element.time);
+            let button = document.createElement("button");
+            let textnode = document.createTextNode(element.time);
+            button.id=element.id;
+            button.classList.add("btn");
+            button.classList.add("btn-outline-primary");
+            button.addEventListener("click", displayByTime);
+            button.appendChild(textnode);
+            buttonDiv.appendChild(button);}
+        );
       });
-    //hardcoding weather reports to display
-    document.getElementById('morningReportDate').innerHTML = displayDate;
-    document.getElementById('eveningReportDate').innerHTML = displayDate;
-    document.getElementById('morningReportTemp').innerHTML = Math.floor(Math.random() * (10) + 20);
-    document.getElementById('eveningReportTemp').innerHTML = Math.floor(Math.random() * (10) + 20);
-    document.getElementById('morningReportTempHigh').innerHTML = parseInt(document.getElementById('morningReportTemp').innerHTML) + 2;
-    document.getElementById('eveningReportTempHigh').innerHTML = parseInt(document.getElementById('eveningReportTemp').innerHTML) + 2;
-    document.getElementById('morningReportTempLow').innerHTML = parseInt(document.getElementById('morningReportTemp').innerHTML) - 2;
-    document.getElementById('eveningReportTempLow').innerHTML = parseInt(document.getElementById('eveningReportTemp').innerHTML) - 2;
-    document.getElementById('morningReportHum').innerHTML = Math.floor(Math.random() * (15) + 47);
-    document.getElementById('eveningReportHum').innerHTML = Math.floor(Math.random() * (15) + 47);
-    document.getElementById('morningReportHeatIndex').innerHTML = Math.floor(Math.random() * (5) + 20);
-    document.getElementById('eveningReportHeatIndex').innerHTML = Math.floor(Math.random() * (5) + 20);
-    document.getElementById('morningReportColdWind').innerHTML = Math.floor(Math.random() * (7) + 20);
-    document.getElementById('eveningReportColdWind').innerHTML = Math.floor(Math.random() * (7) + 20);
-    document.getElementById('morningReportDewPoint').innerHTML = Math.floor(Math.random() * (8) + 14);
-    document.getElementById('eveningReportDewPoint').innerHTML = Math.floor(Math.random() * (8) + 14);
-    document.getElementById('morningReportBar').innerHTML = Math.floor(Math.random() * (48) + 1000);
-    document.getElementById('eveningReportBar').innerHTML = Math.floor(Math.random() * (48) + 1000);
-    document.getElementById('morningReportWindSpeed').innerHTML = Math.floor(Math.random() * (6) + 1);
-    document.getElementById('eveningReportWindSpeed').innerHTML = Math.floor(Math.random() * (6) + 1);
-    //Wind Direction
-    document.getElementById('morningReportHighWind').innerHTML = parseInt(document.getElementById('morningReportWindSpeed').innerHTML) + 2;
-    document.getElementById('eveningReportHighWind').innerHTML = parseInt(document.getElementById('eveningReportWindSpeed').innerHTML) + 2;
-    document.getElementById('morningReportTenMinWind').innerHTML = Math.floor(Math.random() * (63) + 680);
-    document.getElementById('eveningReportTenMinWind').innerHTML = Math.floor(Math.random() * (63) + 680);
-    document.getElementById('morningReportRain').innerHTML = Math.floor(Math.random() * (5) + 1);
-    document.getElementById('eveningReportRain').innerHTML = Math.floor(Math.random() * (5) + 1);
-    document.getElementById('morningReportDayRain').innerHTML = document.getElementById('morningReportRain').innerHTML;
-    document.getElementById('eveningReportDayRain').innerHTML = document.getElementById('eveningReportRain').innerHTML;
-    document.getElementById('morningReportMonthRain').innerHTML = parseInt(document.getElementById('morningReportRain').innerHTML) * 30;
-    document.getElementById('eveningReportMonthRain').innerHTML = parseInt(document.getElementById('eveningReportRain').innerHTML) * 30;
-    document.getElementById('morningReportYearRain').innerHTML = parseInt(document.getElementById('morningReportRain').innerHTML) * 365;
-    document.getElementById('eveningReportYearRain').innerHTML = parseInt(document.getElementById('eveningReportRain').innerHTML) * 365;
-    document.getElementById('morningReportUV').innerHTML = Math.floor(Math.random() * (4) + 5);
-    document.getElementById('eveningReportUV').innerHTML = Math.floor(Math.random() * (3) + 1);
-    document.getElementById('morningReportUVHigh').innerHTML = parseInt(document.getElementById('morningReportUV').innerHTML) + 1;
-    document.getElementById('eveningReportUVHigh').innerHTML = document.getElementById('eveningReportUV').innerHTML;
 }
 
 //Display Report Time options for date clicked - requires query database
-function reportTimeOptions(date){
-    //PLAN
-    /*
-    query database for reports on date
-    foreach time, document.getElementById('viewReports') - add a button child label with time
-        add a class to classList
-
-    //should split into two functions
-        1. to display reportTimeOption buttons
-        2. populate report info
-
-    query all reportTimeOptions buttons 
-        use innerHTML to query database and bring up weather info
-        populate report info with database info
-    */
+function displayByTime(){
+    console.log(this.id);
+    let URL = "http://localhost:3004/weather/"+this.id;
+    $.get(URL, function(data){
+        let tableBody = document.getElementById("displayTableBody");
+        let weatherInfo = JSON.parse(data[0].weatherinfo);
+        let date = data[0].date;
+        document.getElementById("displayTableDate").innerHTML=date.substring(0, date.length-14);
+        document.getElementById("displayTableTime").innerHTML=data[0].time;
+        for(const property in weatherInfo){
+            console.log(property+": "+weatherInfo[property]);
+            let row = document.createElement("tr");
+            let th = document.createElement("th");
+            th.setAttribute("scope", "row");
+            let td = document.createElement("td");
+            let node1 = document.createTextNode(property);
+            let node2 = document.createTextNode(weatherInfo[property]);
+            th.appendChild(node1);
+            td.appendChild(node2);
+            row.appendChild(th);
+            row.appendChild(td);
+            tableBody.appendChild(row);
+        }
+        let announcementString = "<strong>Anuncio:</strong> "+data[0].announcement;
+        document.getElementById("displayTableAnnouncement").innerHTML=announcementString;
+    });
 }

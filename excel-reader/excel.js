@@ -32,7 +32,8 @@ document.getElementById('submit').addEventListener("click", () => {
     //create new report based off of checklist
     console.log(weatherInfo);
     console.log(compileReport());
-
+    $.post("http://localhost:3004/weather/",compileReport());
+    console.log("sent");
 });
 
 document.getElementById('morning').addEventListener("click", () => {

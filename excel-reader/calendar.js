@@ -111,7 +111,11 @@ function displayReports(displayDay) {
         displayDay = ("0" + displayDay);
     }
     let displayDate = (displayYear + "-" + displayMonth + "-" + displayDay);
-    
+    let URL = "http://localhost:3004/weather/"+displayYear+"/"+displayMonth+"/"+displayDay;
+    console.log("URL:", URL);
+    $.get(URL, function(data){
+        console.log("Data: " + data[0].date);
+      });
     //hardcoding weather reports to display
     document.getElementById('morningReportDate').innerHTML = displayDate;
     document.getElementById('eveningReportDate').innerHTML = displayDate;

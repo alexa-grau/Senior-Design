@@ -1,9 +1,11 @@
 const mysql = require('mysql');
 const express = require('express');
+var cors = require('cors');
 var app = express();
 const bodyparser = require('body-parser');
 const bcrypt = require('bcrypt');
 
+app.use(cors());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false}));
 
@@ -304,8 +306,10 @@ app.post('/weather/', (req, res) => {
 	var sql = 'INSERT INTO `waterdb`.`weather` (`date`, `time`, `weatherinfo`, `announcement`) VALUES (?, ?, ?, ?);';
 
 	con.query(sql, [report.date, report.time, report.weatherinfo, report.announcement], (err, rows, fields) => {
-		if (!err)
+		if (!err){
+			// res.set('Access-Control-Allow-Origin', 'http://localhost:3004/')
 			res.send('New weather report created successfully');
+		}
 		else
 			console.log(err);
 	});

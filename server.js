@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false}));
 
+
 var con = mysql.createConnection({
 	host	: 'water-database.cex69uznl7nj.us-west-1.rds.amazonaws.com',
 	user	: 'admin',
@@ -50,9 +51,10 @@ app.get('/users/:phonenumber/:password', (req, res) => {
 				else {
 					if(rows[0].password) {
 						bcrypt.compare(req.params.password, rows[0].password, function(err, result) {
-							console.log(req.params.password);
-							console.log(rows[0].password);
-							if(result) {
+							console.log((req.params.password).localeCompare(rows[0].password));
+							// bcrypt compare parameters should be entered password, hash, and function
+							// if(result) {
+							if((req.params.password).localeCompare(rows[0].password)==0){
 								console.log("Password matches!");
 								res.send(rows);
 							} else {
@@ -245,6 +247,65 @@ app.get('/mail/:phoneNumber', (req, res) => {
 	con.query(sql, [req.params.phoneNumber], (err, rows, fields) => {
 		if (!err)
 			res.send(rows);
+		else
+			console.log(err);
+	});
+});
+
+//get all weather reports
+app.get('/weather', (req, res) => {
+
+	var sql = 'SELECT * FROM weather';
+	con.query(sql, (err, rows, fields) => {
+		if (!err)
+			res.send(rows);
+		else
+			console.log(err);
+	});
+});
+
+//get all weather reports from one day
+app.get('/weather/:year/:month/:day', (req, res) => {
+	var date = req.params.year+"-"+req.params.month+"-"+req.params.day;
+	var sql = 'SELECT * FROM weather WHERE date BETWEEN ? AND ?;';
+	con.query(sql, [date, date], (err, rows, fields) => {
+		if (!err)
+			res.send(rows);
+		else
+			console.log(err);
+	});
+});
+
+//get one weather report by ID
+app.get('/weather/:id', (req, res) => {
+	var sql = 'SELECT * FROM weather WHERE id = ?;';
+	con.query(sql, [req.params.id], (err, rows, fields) => {
+		if (!err)
+			res.send(rows);
+		else
+			console.log(err);
+	});
+});
+
+//get most recent weather report
+app.get('/weather/recent/report', (req, res) => {
+	var sql = 'SELECT * FROM weather ORDER BY date DESC, time DESC LIMIT 1;';
+	con.query(sql, (err, rows, fields) => {
+		if (!err)
+			res.send(rows);
+		else
+			console.log(err);
+	});
+});
+
+//create a new weather report
+app.post('/weather/', (req, res) => {
+	let report = req.body;
+	var sql = 'INSERT INTO `waterdb`.`weather` (`date`, `time`, `weatherinfo`, `announcement`) VALUES (?, ?, ?, ?);';
+
+	con.query(sql, [report.date, report.time, report.weatherinfo, report.announcement], (err, rows, fields) => {
+		if (!err)
+			res.send('New weather report created successfully');
 		else
 			console.log(err);
 	});

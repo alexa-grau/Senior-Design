@@ -15,7 +15,8 @@ export class WaterHomeBigAdmin extends React.Component {
     };
 
     fetchData = async() => {
-        const response = await fetch ('http://10.0.0.123:3004/reports');
+        // const response = await fetch ('http://10.0.0.123:3004/reports');
+        const response = await fetch ('http://localhost:3004/reports');
         const users = await response.json();
         this.setState({data: users});
         console.log(this.state.data[0].date);
@@ -25,11 +26,13 @@ export class WaterHomeBigAdmin extends React.Component {
     }
 
     componentDidMount() {
+        console.log("Water mounting");
         this.fetchData();
     }
 
 
     render() {
+        console.log("water rendering");
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -50,6 +53,14 @@ export class WaterHomeBigAdmin extends React.Component {
                 </View>
 
                 <View style={styles.pageContent}>
+                    <View style={styles.subheader}>
+                        <View style={styles.leftHeader}>
+                            <Button style={styles.back}
+                                onPress={() => this.props.navigation.navigate('Home', { admin:true, bigAdmin:true })}>
+                                <Text style={styles.backText}>{'<'} Atrás</Text>
+                            </Button>
+                        </View>
+                    </View>
 
                     <View style={styles.subheader}>
 

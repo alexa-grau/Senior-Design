@@ -17,7 +17,7 @@ export class Login extends React.Component {
         this.state = {
             phoneNum: "",
             password: "",
-            reports: [],
+            reports: []
         };
     }
 
@@ -42,21 +42,21 @@ export class Login extends React.Component {
 
 
     correctLogin = async() => {
-
         var checkNum = this.state.phoneNum;
         var checkPass = this.state.password;
 
         if(checkNum==0 && checkPass=="design"){
             // console.log("Design testing");
-            this.props.navigation.navigate('Home');
+            this.props.navigation.navigate('Home', { admin:true, bigAdmin:true });
         }
 
-        await fetch("http://10.0.0.13:3004/users/" + checkNum + "/" + checkPass, {
+        // await fetch("http://10.0.0.13:3004/users/" + checkNum + "/" + checkPass, {
+        await fetch("http://localhost:3004/users/" + checkNum + "/" + checkPass, {
             method: 'GET',
             redirect: 'follow'
         })
             .then(response => response.json())
-            .then(result => {   console.log(result);
+            .then(result => {   
                                 //console.log(typeof result);
                                 if (result.length == 0)
                                 {
@@ -74,17 +74,22 @@ export class Login extends React.Component {
                                     // {
                                         if (result[0].mainAdmin == 1)
                                         {
-                                            this.props.navigation.navigate('WaterHomeBigAdmin');
+                                            // this.props.navigation.navigate('WaterHomeBigAdmin');
+                                            // this.props.navigation.navigate('Home');
+                                            this.props.navigation.navigate('Home', { admin:true, bigAdmin:true });
                                         }
                                         else if (result[0].givenAdminRights == 0)
                                         {
-                                            this._saveInfo();
-                                            this.props.navigation.navigate('WaterHomeGen');
+                                            // this._saveInfo();
+                                            console.log("General user");
+                                            this.props.navigation.navigate({ admin:false, bigAdmin:false });
                                         }
                                         else
                                         {
-                                            this._saveInfo();
-                                            this.props.navigation.navigate('WaterHomeAdmin');
+                                            // this._saveInfo();
+                                            // this.props.navigation.navigate('WaterHomeAdmin');
+                                            this.props.navigation.navigate('Home');
+                                            this.props.navigation.navigate('Home', { admin:true, bigAdmin:false });
                                         }
                                     // }
                                     // else
@@ -119,6 +124,9 @@ export class Login extends React.Component {
     _saveInfo() {
         console.log(this.state.phoneNum);
         UserProfile.setNumber(this.state.phoneNum);
+        if(this.state.bigAdmin){
+            UserProfile.setMainAdmin(1);
+        }
     }
     // componentDidMount () {
     //     this.correctLogin();

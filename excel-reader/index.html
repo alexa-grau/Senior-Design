@@ -12,7 +12,7 @@
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <title>Convert excel to JSON Object</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
-
+    
     <style>
         .hover:hover{
             background-color: #BEBEBE;
@@ -23,7 +23,7 @@
 
 <body>
     <div class="container mt-5">
-        <h1>View Current Weather Reports</h1>
+        <h1>Ver Informes Meteorológicos Actuales</h1>
         <div class="row">
             <div class="col-md-5">
               <div class="card">
@@ -31,13 +31,13 @@
                 <table class="table table-bordered table-responsive-sm" id="calendar">
                     <thead>
                     <tr>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
+                        <th>Do</th>
+                        <th>Lu</th>
+                        <th>Ma</th>
+                        <th>Mi</th>
+                        <th>Ju</th>
+                        <th>Vi</th>
+                        <th>Sa</th>
                     </tr>
                     </thead>
         
@@ -48,26 +48,26 @@
         
                 <div class="form-inline">
         
-                    <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">Previous</button>
+                    <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">El Mes Anterior</button>
         
-                    <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()">Next</button>
+                    <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()">El Mes Próximo</button>
                 </div>
                 <br/>
                 <form class="form-inline">
-                    <label class="lead mr-2 ml-2" for="month">Jump To: </label>
+                    <label class="lead mr-2 ml-2" for="month">Salta a: </label>
                     <select class="form-control col-sm-4" name="month" id="month" onchange="jump()">
-                        <option value=0>Jan</option>
+                        <option value=0>Enero</option>
                         <option value=1>Feb</option>
                         <option value=2>Mar</option>
-                        <option value=3>Apr</option>
-                        <option value=4>May</option>
+                        <option value=3>Abr</option>
+                        <option value=4>Mayo</option>
                         <option value=5>Jun</option>
                         <option value=6>Jul</option>
-                        <option value=7>Aug</option>
-                        <option value=8>Sep</option>
+                        <option value=7>Agosto</option>
+                        <option value=8>Sept</option>
                         <option value=9>Oct</option>
                         <option value=10>Nov</option>
-                        <option value=11>Dec</option>
+                        <option value=11>Dic</option>
                     </select>
         
         
@@ -120,101 +120,114 @@
               
 
             <div class="col-md-7">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#" id="morning">Morning</a></li>
-                    <li><a href="#" id="evening">Evening</a></li>
-                    <li><a href="#" id="additionalReports">Additional Reports</a></li>
-                </ul>
+                <div id="viewReports">
+                  <h5>Seleccionar Hora:</h5>
+                  <button class="btn btn-outline-primary" id="morning">06:00</button>
+                  <button class="btn btn-outline-primary" id="evening">18:00</button>
+                  <!--
+                    <li class="active nav-item"><a href="#" id="morning">06:00</a></li>
+                    <li class="nav-item"><a href="#" id="evening">18:00</a></li>
+                    <li class="nav-item"><a href="#" id="additionalReports">20:00</a></li>
+                  -->
+                </div>
 
-                <div class="table-wrapper-scroll-y my-custom-scrollbar" id="morningtable" style="height:475px;overflow: scroll">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar" id="morningtable" style="height:450px;overflow: scroll">
 
                     <table class="table table-bordered table-striped mb-0">
                       <thead>
                         <tr>
-                          <th scope="col">Indicator</th>
-                          <th scope="col">Value</th>
+                          <th scope="col">Indicador</th>
+                          <th scope="col">Valor</th>
                         </tr>
                       </thead>
                       <tbody style="height:300px;overflow-y: auto;">
                         <tr>
-                            <th scope="row">Date</th>
+                            <th scope="row">Fecha</th>
                             <td id="morningReportDate">2021-04-12</td>
                           </tr>
                         <tr>
-                            <th scope="row">Time</th>
-                            <td>06:00:00 AM</td>
+                            <th scope="row">Hora</th>
+                            <td>06:00</td>
                         </tr>
                         <tr>
-                          <th scope="row">Temp.</th>
-                          <td>23.1C</td>
+                          <th scope="row">Barómetro - in Hg</th>
+                          <td id="morningReportTemp">23</td>
                         </tr>
                         <tr>
-                          <th scope="row">Temperature High</th>
-                          <td>23.1C</td>
+                          <th scope="row">Temp - °C</th>
+                          <td id="morningReportTempHigh">23</td>
                         </tr>
                         <tr>
-                          <th scope="row">Temperature Low</th>
-                          <td>22.8C</td>
+                          <th scope="row">Temp. Alta - °C</th>
+                          <td id="morningReportTempLow">22</td>
                         </tr>
                         <tr>
-                          <th scope="row">Humidity</th>
-                          <td>57</td>
+                          <th scope="row">Temp. Baja - °C</th>
+                          <td id="morningReportHum">57</td>
                         </tr>
                         <tr>
-                          <th scope="row">Heat Index</th>
-                          <td>23.4</td>
+                          <th scope="row">Hum - %</th>
+                          <td id="morningReportHeatIndex">23.4</td>
                         </tr>
                         <tr>
-                          <th scope="row">Cold Wind</th>
-                          <td>23.1</td>
+                          <th scope="row">Punto de rocío - °C</th>
+                          <td id="morningReportColdWind">23.1</td>
                         </tr>
                         <tr>
-                            <th scope="row">Dew Point</th>
-                            <td>14.1</td>
+                            <th scope="row">Bulbo Húmedo - °C</th>
+                            <td id="morningReportDewPoint">14.1</td>
                         </tr>
                         <tr>
-                            <th scope="row">Barometer</th>
-                            <td>1012.6</td>
+                            <th scope="row">Velocidad del viento - km/h</th>
+                            <td id="morningReportBar">1012.6</td>
                         </tr>
                         <tr>
-                            <th scope="row">Wind Speed</th>
-                            <td>1.8</td>
+                            <th scope="row">Dirección del viento</th>
+                            <td id="morningReportWindSpeed">1.8</td>
                         </tr>
                         <tr>
-                            <th scope="row">Wind Direction</th>
+                            <th scope="row">Viento Corriente - km</th>
                             <td>ESE</td>
                         </tr>
                         <tr>
-                            <th scope="row">High Wind Speed</th>
-                            <td>1.8</td>
+                            <th scope="row">Alta velocidad del viento - km/h</th>
+                            <td id="morningReportHighWind">1.8</td>
                         </tr>
                         <tr>
-                            <th scope="row">10 Min. Medium Wind</th>
-                            <td>698</td>
+                            <th scope="row">Alta Dirección del viento</th>
+                            <td id="morningReportTenMinWind">698</td>
                         </tr> 
                         <tr>
-                            <th scope="row">Rain Rate</th>
-                            <td>0</td>
+                            <th scope="row">Viento Frío - °C</th>
+                            <td id="morningReportRain">0</td>
                         </tr>
                         <tr>
-                            <th scope="row">Day Rain</th>
-                            <td>0</td>
+                            <th scope="row">Índice de calor - °C</th>
+                            <td id="morningReportDayRain">0</td>
                         </tr>
                         <tr>
-                            <th scope="row">Rain of the Month</th>
-                            <td>0</td>
+                            <th scope="row">THW Index - °C</th>
+                            <td id="morningReportMonthRain">0</td>
                         </tr>
                         <tr>
-                            <th scope="row">Year Rain</th>
-                            <td>0</td>
+                            <th scope="row">Lluvia - mm</th>
+                            <td id="morningReportYearRain">0</td>
                         </tr>
                         <tr>
-                            <th scope="row">UV Index</th>
-                            <td>1.5</td>
+                            <th scope="row">Tasa de lluvia - mm/h</th>
+                            <td id="morningReportUV">1.5</td>
                         </tr>
                         <tr>
-                            <th scope="row">High UV Index</th>
-                            <td>---</td>
+                            <th scope="row">ET - mm</th>
+                            <td id="morningReportUVHigh">---</td>
+                        </tr> 
+                        <tr>
+                          <th scope="row">Días-grado de calentamiento</th>
+                          <td id="morningReportUVHigh">---</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Días-grado de enfriamiento</th>
+                          <td id="morningReportUVHigh">---</td>
                         </tr> 
                       </tbody>
                     </table>
@@ -222,96 +235,104 @@
                     <p><strong>Announcement:</strong> This morning's announcement.</p>
                 </div>
 
-                <div class="table-wrapper-scroll-y my-custom-scrollbar" id="eveningtable" style="height:475px;overflow: scroll;display:none;">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar" id="eveningtable" style="height:450px;overflow: scroll;display:none;">
 
                     <table class="table table-bordered table-striped mb-0">
                       <thead>
                         <tr>
-                          <th scope="col">Indicator</th>
-                          <th scope="col">Value</th>
+                          <th scope="col">Indicador</th>
+                          <th scope="col">Valor</th>
                         </tr>
                       </thead>
                       <tbody style="height:300px;overflow-y: auto;">
                         <tr>
-                            <th scope="row">Date</th>
+                            <th scope="row">Fecha</th>
                             <td id="eveningReportDate">2021-04-12</td>
                           </tr>
                         <tr>
-                            <th scope="row">Time</th>
-                            <td>06:00:00 PM</td>
+                            <th scope="row">Hora</th>
+                            <td>18:00</td>
                         </tr>
                         <tr>
-                          <th scope="row">Temp.</th>
-                          <td>20.2C</td>
+                          <th scope="row">Barómetro - in Hg</th>
+                          <td id="eveningReportTemp">20</td>
                         </tr>
                         <tr>
-                          <th scope="row">Temperature High</th>
-                          <td>20.2C</td>
+                          <th scope="row">Temp - °C</th>
+                          <td id="eveningReportTempHigh">20</td>
                         </tr>
                         <tr>
-                          <th scope="row">Temperature Low</th>
-                          <td>18.5C</td>
+                          <th scope="row">Temp. Alta - °C</th>
+                          <td id="eveningReportTempLow">18</td>
                         </tr>
                         <tr>
-                          <th scope="row">Humidity</th>
-                          <td>57</td>
+                          <th scope="row">Temp. Baja - °C</th>
+                          <td id="eveningReportHum">57</td>
                         </tr>
                         <tr>
-                          <th scope="row">Heat Index</th>
-                          <td>23.4</td>
+                          <th scope="row">Hum - %</th>
+                          <td id="eveningReportHeatIndex">23.4</td>
                         </tr>
                         <tr>
-                          <th scope="row">Cold Wind</th>
-                          <td>23.1</td>
+                          <th scope="row">Punto de rocío - °C</th>
+                          <td id="eveningReportColdWind">23.1</td>
                         </tr>
                         <tr>
-                            <th scope="row">Dew Point</th>
-                            <td>14.1</td>
+                            <th scope="row">Bulbo Húmedo - °C</th>
+                            <td id="eveningReportDewPoint">14.1</td>
                         </tr>
                         <tr>
-                            <th scope="row">Barometer</th>
-                            <td>1012.6</td>
+                            <th scope="row">Velocidad del viento - km/h</th>
+                            <td id="eveningReportBar">1012.6</td>
                         </tr>
                         <tr>
-                            <th scope="row">Wind Speed</th>
-                            <td>1.8</td>
+                            <th scope="row">Dirección del viento</th>
+                            <td id="eveningReportWindSpeed">1.8</td>
                         </tr>
                         <tr>
-                            <th scope="row">Wind Direction</th>
+                            <th scope="row">Viento Corriente - km</th>
                             <td>ESE</td>
                         </tr>
                         <tr>
-                            <th scope="row">High Wind Speed</th>
-                            <td>1.8</td>
+                            <th scope="row">Alta velocidad del viento - km/h</th>
+                            <td id="eveningReportHighWind">1.8</td>
                         </tr>
                         <tr>
-                            <th scope="row">10 Min. Medium Wind</th>
-                            <td>698</td>
+                            <th scope="row">Alta Dirección del viento</th>
+                            <td id="eveningReportTenMinWind">698</td>
                         </tr> 
                         <tr>
-                            <th scope="row">Rain Rate</th>
-                            <td>0</td>
+                            <th scope="row">Viento Frío - °C</th>
+                            <td id="eveningReportRain">0</td>
                         </tr>
                         <tr>
-                            <th scope="row">Day Rain</th>
-                            <td>0</td>
+                            <th scope="row">Índice de calor - °C</th>
+                            <td id="eveningReportDayRain">0</td>
                         </tr>
                         <tr>
-                            <th scope="row">Rain of the Month</th>
-                            <td>0</td>
+                            <th scope="row">THW Index - °C</th>
+                            <td id="eveningReportMonthRain">0</td>
                         </tr>
                         <tr>
-                            <th scope="row">Year Rain</th>
-                            <td>0</td>
+                            <th scope="row">Lluvia - mm</th>
+                            <td id="eveningReportYearRain">0</td>
                         </tr>
                         <tr>
-                            <th scope="row">UV Index</th>
-                            <td>1.5</td>
+                            <th scope="row">Tasa de lluvia - mm/h</th>
+                            <td id="eveningReportUV">1.5</td>
                         </tr>
                         <tr>
-                            <th scope="row">High UV Index</th>
-                            <td>---</td>
-                        </tr> 
+                            <th scope="row">ET - mm</th>
+                            <td id="eveningReportUVHigh">---</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Días-grado de calentamiento</th>
+                          <td id="eveningReportUVHigh">---</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Días-grado de enfriamiento</th>
+                          <td id="eveningReportUVHigh">---</td>
+                        </tr>
                       </tbody>
                     </table>
                     <br>
@@ -322,19 +343,25 @@
     </div>
     
     <div class="container mt-5">
-        <h1>Create New Weather Report</h1>
+        <h1>Crear Nuevo Informe Meteorológico</h1>
         <div class="row">
-            
-            <div class="col-md-3">
-                <input class="form-control" type="file" id="input" accept=".xls,.xlsx"  >
-            </div>
-            <div class="col-md-2">
-                <!--<button class="btn btn-primary" id="button">Upload</button>-->
-                <button class="btn btn-primary" id="upload">Upload</button>
-            </div>
+              <div class="col-md-4">
+                  <input class="form-control" type="file" id="input" accept=".xls,.xlsx,.csv">
+              </div>
+              <div class="col-md-4">
+                <label for="reportTime">Elige un momento desde el que subir:</label>
+                <input type="datetime-local" id="reportTime" name="reportTime" min="2018-01-01T00:00" max="2025-06-14T00:00">
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-primary" id="button">Subir</button>
+              </div>
           </div>
 <div>
-    <!--<pre id="jsondata"></pre>-->
+
+    <!-- Display JSON -->
+    <pre id="jsondata"></pre>
+
+
     <br>
     <div class="container mt-7">
       <div class="row">
@@ -344,83 +371,115 @@
                 <table id="newWeatherReport" class="table table-bordered table-striped mb-0">
                   <thead>
                     <tr>
-                      <th scope="col">Indicator</th>
-                      <th scope="col">Value</th>
+                      <th scope="col">Indicador</th>
+                      <th scope="col">Valor</th>
                     </tr>
                   </thead>
                   <tbody style="height:300px;overflow-y: auto;">
-                    <tr id="temp1">
-                      <th scope="row">Temp.</th>
-                      <td>23.1C</td>
+                    <tr>
+                      <th scope="row">Fecha</th>
+                      <td id="excelDate"></td>
                     </tr>
-                    <tr id="tempHigh1">
-                      <th scope="row">Temperature High</th>
-                      <td>23.1C</td>
-                    </tr>
-                    <tr id="tempLow1">
-                      <th scope="row">Temperature Low</th>
-                      <td>22.8C</td>
-                    </tr>
-                    <tr id="hum1">
-                      <th scope="row">Humidity</th>
-                      <td>57</td>
-                    </tr>
-                    <tr id="heatIndex1">
-                      <th scope="row">Heat Index</th>
-                      <td>23.4</td>
-                    </tr>
-                    <tr id="coldWind1">
-                      <th scope="row">Cold Wind</th>
-                      <td>23.1</td>
-                    </tr>
-                    <tr id="dewPoint1">
-                        <th scope="row">Dew Point</th>
-                        <td>14.1</td>
+                    <tr>
+                      <th scope="row">Hora</th>
+                      <td id="excelTime"></td>
                     </tr>
                     <tr id="barometer1">
-                        <th scope="row">Barometer</th>
-                        <td>1012.6</td>
+                      <th scope="row" id="nameBar">Barómetro - in Hg</th>
+                      <td id="excelBar"></td>
                     </tr>
+                    <tr id="temp1">
+                      <th scope="row" id="nameTemp">Temp - °C</th>
+                      <td id="excelTemp"></td>
+                    </tr>
+                    <tr id="tempHigh1">
+                      <th scope="row" id="nameTempHigh">Temp. Alta - °C</th>
+                      <td id="excelTempHigh"></td>
+                    </tr>
+                    <tr id="tempLow1">
+                      <th scope="row" id="nameTempLow">Temp. Baja - °C</th>
+                      <td id="excelTempLow"></td>
+                    </tr>
+                    <tr id="hum1">
+                      <th scope="row" id="nameHum">Hum - %</th>
+                      <td id="excelHum"></td>
+                    </tr>
+                    <tr id="dewPoint1">
+                      <th scope="row" id="nameDewPoint">Punto de rocío - °C</th>
+                      <td id="excelDewPoint"></td>
+                    </tr>
+                    <!--add in-->
+                    <tr id="bulboHumedo1">
+                      <th scope="row" id="nameBulboHumedo">Bulbo Húmedo - °C</th>
+                      <td id="excelBulboHumedo"></td>
+                    </tr>
+                    <!---->
                     <tr id="windSpeed1">
-                        <th scope="row">Wind Speed</th>
-                        <td>1.8</td>
+                      <th scope="row" id="nameWindSpeed">Velocidad del viento - km/h</th>
+                      <td id="excelWindSpeed"></td>
                     </tr>
                     <tr id="windDir1">
-                        <th scope="row">Wind Direction</th>
-                        <td>ESE</td>
+                      <th scope="row" id="nameWindDir">Dirección del viento</th>
+                      <td id="excelWindDir"></td>
                     </tr>
+                    <!--add in-->
+                    <tr id="runningWind1">
+                      <th scope="row" id="nameRunningWind">Viento Corriente - km</th>
+                      <td id="excelRunningWind"></td>
+                    </tr>
+                    <!---->
                     <tr id="highWindSpeed1">
-                        <th scope="row">High Wind Speed</th>
-                        <td>1.8</td>
+                      <th scope="row" id="nameHighWind">Alta velocidad del viento - km/h</th>
+                      <td id="excelHighWind"></td>
                     </tr>
-                    <tr id="tenMinWind1">
-                        <th scope="row">10 Min. Medium Wind</th>
-                        <td>698</td>
-                    </tr> 
+                    <!--add in-->
+                    <tr id="highWindDir1">
+                      <th scope="row" id="nameHighWindDir">Alta Dirección del viento</th>
+                      <td id="excelHighWindDir"></td>
+                    </tr>
+                    <!---->
+                    <tr id="coldWind1">
+                      <th scope="row" id="nameColdWind">Viento Frío - °C</th>
+                      <td id="excelColdWind"></td>
+                    </tr>
+                    <tr id="heatIndex1">
+                      <th scope="row" id="nameHeatIndex">Índice de calor - °C</th>
+                      <td id="excelHeatIndex"></td>
+                    </tr>
+                    <!--add in-->
+                    <tr id="THW1">
+                      <th scope="row" id="nameTHW">THW Index - °C</th>
+                      <td id="excelTHW"></td>
+                    </tr>
+                    <!---->
+                    <!--add in-->
+                    <tr id="rain1">
+                      <th scope="row" id="nameRain">Lluvia - mm</th>
+                      <td id="excelRain"></td>
+                    </tr>
+                    <!---->
                     <tr id="rainRate1">
-                        <th scope="row">Rain Rate</th>
-                        <td>0</td>
+                      <th scope="row" id="nameRainRate">Tasa de lluvia - mm/h</th>
+                      <td id="excelRainRate"></td>
                     </tr>
-                    <tr id="dayRain1">
-                        <th scope="row">Day Rain</th>
-                        <td>0</td>
+                    <!--add in-->
+                    <tr id="ET1">
+                      <th scope="row" id="nameET">ET - mm</th>
+                      <td id="excelET"></td>
                     </tr>
-                    <tr id="rainMonth1">
-                        <th scope="row">Rain of the Month</th>
-                        <td>0</td>
+                    <!---->
+                    <!--add in-->
+                    <tr id="degreeHeat1">
+                      <th scope="row" id="nameDegreeHeat">Días-grado de calentamiento</th>
+                      <td id="excelDegreeHeat"></td>
                     </tr>
-                    <tr id="rainYear1">
-                        <th scope="row">Year Rain</th>
-                        <td>0</td>
+                    <!---->
+                    <!--add in-->
+                    <tr id="degreeCool1">
+                      <th scope="row" id="nameDegreeCool">Días-grado de enfriamiento</th>
+                      <td id="excelDegreeCool"></td>
                     </tr>
-                    <tr id="uv1">
-                        <th scope="row">UV Index</th>
-                        <td>1.5</td>
-                    </tr>
-                    <tr id="uvHigh1">
-                        <th scope="row">High UV Index</th>
-                        <td>---</td>
-                    </tr> 
+                    <!---->
                   </tbody>
                 </table>
               </div>
@@ -429,34 +488,36 @@
               <div class="col-md-5" id="indicatorChecklist" style="display:none;">
                 <fieldset style="height:400px;overflow: scroll">
                   <legend>Select Weather Indicators</legend>
-                  <input type="checkbox" name="temp" id="temp" value="1" onclick="return validate();" checked>Temperature<br>
-                  <input type="checkbox" name="tempHigh" id="tempHigh" value="1" onclick="return validate();" checked>Temperature High<br>
-                  <input type="checkbox" name="tempLow" id="tempLow" value="1" onclick="return validate();" checked>Temperature Low<br>
-                  <input type="checkbox" name="hum" id="hum" value="1" onclick="return validate();" checked>Humidity<br>
-                  <input type="checkbox" name="heatIndex" id="heatIndex" value="1" onclick="return validate();" checked>Heat Index<br>
-                  <input type="checkbox" name="coldWind" id="coldWind" value="1" onclick="return validate();" checked>Cold Wind<br>
-                  <input type="checkbox" name="dewPoint" id="dewPoint" value="1" onclick="return validate();" checked>Dew Point<br>
-                  <input type="checkbox" name="barometer" id="barometer" value="1" onclick="return validate();" checked>Barometer<br>
-                  <input type="checkbox" name="windSpeed" id="windSpeed" value="1" onclick="return validate();" checked>Wind Speed<br>
-                  <input type="checkbox" name="windDir" id="windDir" value="1" onclick="return validate();" checked>Wind Direction<br>
-                  <input type="checkbox" name="highWindSpeed" id="highWindSpeed" onclick="return validate();" value="1" checked>High Wind Speed<br>
-                  <input type="checkbox" name="tenMinWind" id="tenMinWind" value="1" onclick="return validate();" checked>10 Min. Medium Wind<br>
-                  <input type="checkbox" name="rainRate" id="rainRate" value="1" onclick="return validate();" checked>Rain Rate<br>
-                  <input type="checkbox" name="dayRain" id="dayRain" value="1" onclick="return validate();" checked>Day Rain<br>
-                  <input type="checkbox" name="rainMonth" id="rainMonth" value="1" onclick="return validate();" checked>Rain of the Month<br>
-                  <input type="checkbox" name="rainYear" id="rainYear" value="1" onclick="return validate();" checked>Year Rain<br>
-                  <input type="checkbox" name="uv" id="uv" value="1" onclick="return validate();" checked> UV Index<br>
-                  <input type="checkbox" name="uvHigh" id="uvHigh" value="1" onclick="return validate();" checked>High UV Index<br>
+                  <input type="checkbox" name="Bar" id="barometer" value="1" onclick="return validate();" checked>Barómetro - in Hg<br>
+                  <input type="checkbox" name="Temp" id="temp" value="1" onclick="return validate();" checked>Temp - °C<br>
+                  <input type="checkbox" name="TempHigh" id="tempHigh" value="1" onclick="return validate();" checked>Temp. Alta - °C<br>
+                  <input type="checkbox" name="TempLow" id="tempLow" value="1" onclick="return validate();" checked>Temp. Baja - °C<br>
+                  <input type="checkbox" name="Hum" id="hum" value="1" onclick="return validate();" checked>Hum - %<br>
+                  <input type="checkbox" name="DewPoint" id="dewPoint" value="1" onclick="return validate();" checked>Punto de rocío - °C<br>
+                  <input type="checkbox" name="BulboHumedo" id="bulboHumedo" value="1" onclick="return validate();" checked>Bulbo Húmedo - °C<br>
+                  <input type="checkbox" name="WindSpeed" id="windSpeed" value="1" onclick="return validate();" checked>Velocidad del viento - km/h<br>
+                  <input type="checkbox" name="WindDir" id="windDir" value="1" onclick="return validate();" checked>Dirección del viento<br>
+                  <input type="checkbox" name="RunningWind" id="runningWind" value="1" onclick="return validate();" checked>Viento Corriente - km<br>
+                  <input type="checkbox" name="HighWind" id="highWindSpeed" onclick="return validate();" value="1" checked>Alta velocidad del viento - km/h<br>
+                  <input type="checkbox" name="HighWindDir" id="highWindDir" value="1" onclick="return validate();" checked>Alta Dirección del viento<br>
+                  <input type="checkbox" name="ColdWind" id="coldWind" value="1" onclick="return validate();" checked>Viento Frío - °C<br>
+                  <input type="checkbox" name="HeatIndex" id="heatIndex" value="1" onclick="return validate();" checked>Índice de calor - °C<br>
+                  <input type="checkbox" name="THW" id="THW" value="1" onclick="return validate();" checked>THW Index - °C<br>
+                  <input type="checkbox" name="Rain" id="rain" value="1" onclick="return validate();" checked>Lluvia - mm<br>
+                  <input type="checkbox" name="RainRate" id="rainRate" value="1" onclick="return validate();" checked>Tasa de lluvia - mm/h<br>
+                  <input type="checkbox" name="ET" id="ET" value="1" onclick="return validate();" checked>ET - mm<br>
+                  <input type="checkbox" name="DegreeHeat" id="degreeHeat" value="1" onclick="return validate();" checked>Días-grado de calentamiento<br>
+                  <input type="checkbox" name="DegreeCool" id="degreeCool" value="1" onclick="return validate();" checked>Días-grado de enfriamiento<br>
                 </fieldset>
               </div>
             </div>
             <br>
             <div id="newAnnouncement" style="display:none;">
               <textarea id="announcement" name="announcement" rows="5" cols="150" placeholder="Announcements"></textarea>
-              <button class="btn btn-primary" id="submit">Submit</button>
+              <button class="btn btn-primary" id="submit">Enviar</button>
             </div>
         <div id="success" style="display:none">
-            <p>Success! Weather report has been uploaded.</p>
+            <p>¡Éxito! Se ha subido el informe meteorológico.p>
         </div>
     <br>
     <br>

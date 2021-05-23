@@ -29,11 +29,9 @@ export class WeatherDay extends React.Component {
         const response = await fetch('http://localhost:3004/weather/'+dateString);
         const weatherReports = await response.json();
         this.setState({data: weatherReports});
-        console.log(this.state.data);
     }
 
     componentDidMount() {
-        console.log("Weather reports mounting");
         this.fetchData();
     }
 
@@ -66,7 +64,7 @@ export class WeatherDay extends React.Component {
 
                 <View style={styles.pageContent}>
                     <Button style={styles.backButton}
-                        onPress={() => this.props.navigation.navigate('WeatherHome')}>
+                        onPress={() => this.props.navigation.navigate('WeatherHome', { current: date.dateString })}>
                         <Text style={styles.backText}>{'<'} Atrás</Text>
                     </Button>
 

@@ -19,11 +19,12 @@ export class WeatherHome extends React.Component {
     };
 
     render() {
-        // hard coded to pull current date "morning" report
-        // once database set up, pull the latest report in the database
         let date = new Date();
         let dateString = date.toISOString().slice(0,10);
-        console.log("datestring:", dateString);
+        let current = dateString;
+        if (this.props.navigation.state.params) {
+            current = this.props.navigation.state.params.current;
+        }
 
         return (
             <View style={styles.container}>
@@ -54,9 +55,10 @@ export class WeatherHome extends React.Component {
                     <Text style={styles.waterTitle}>Clima</Text>
                     <View style={styles.weatherForm}>
                         <Calendar 
+                            current={current}
                             monthFormat={"MMMM 'de' yyyy"}
-                            // maxDate={dateString}
-                            maxDate={'2021-05-03'}
+                            maxDate={dateString}
+                            // maxDate={'2021-05-03'}
                             onDayPress={(day) => {this.props.navigation.navigate('WeatherDay', { date:day })}}
                             // onDayPress={(day) => {getDayReports(day)}}
                             theme={{

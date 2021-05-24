@@ -87,6 +87,7 @@ function hoverableCells() {
     document.querySelectorAll('.hover').forEach(item => {
         item.addEventListener('click', () => {
             document.getElementById("timeButtons").innerHTML=""; // kill previous buttons
+            document.getElementById("displayTableBody").innerHTML=""; // kill table rows
             //remove any bg-primary cells
             document.querySelectorAll('.hover').forEach(hoverable => {
                 hoverable.classList.remove('bg-primary');
@@ -116,27 +117,47 @@ function displayReports(displayDay) {
     console.log("URL:", URL);
     let buttonDiv = document.getElementById("timeButtons");
     $.get(URL, function(data){
+        let table = document.getElementById("reportWholeTable");
         if(data.length==0){
             // hide table
-            let table = document.getElementById("displayTableBody");
-            console.log("child count", table.childElementCount);
             table.style.display = 'none';
-            // display message?
+            buttonDiv.innerHTML = "No hay informes meteorológicos disponibles hoy";
+            document.getElementById("displayTableAnnouncement").innerHTML = '';
         } else{
-            document.getElementById("displayTableBody").style.display = '';
+            table.style.display = '';
+            data.forEach(element => 
+                {console.log(element.time);
+                let button = document.createElement("button");
+                let textnode = document.createTextNode(element.time);
+                button.id=element.id;
+                button.classList.add("btn");
+                button.classList.add("btn-outline-primary");
+                button.addEventListener("click", displayByTime);
+                button.appendChild(textnode);
+                buttonDiv.appendChild(button);}
+            );
         }
-        data.forEach(element => 
-            {console.log(element.time);
-            let button = document.createElement("button");
-            let textnode = document.createTextNode(element.time);
-            button.id=element.id;
-            button.classList.add("btn");
-            button.classList.add("btn-outline-primary");
-            button.addEventListener("click", displayByTime);
-            button.appendChild(textnode);
-            buttonDiv.appendChild(button);}
-        );
+        
       });
+}
+
+function hideTable(){
+    let table = document.getElementById("reportWholeTable");
+    table.style.display = 'none';
+}
+
+function addRowContent(tableBody, s1, s2){
+    let row = document.createElement("tr");
+    let th = document.createElement("th");
+    th.setAttribute("scope", "row");
+    let td = document.createElement("td");
+    let node1 = document.createTextNode(s1);
+    let node2 = document.createTextNode(s2);
+    th.appendChild(node1);
+    td.appendChild(node2);
+    row.appendChild(th);
+    row.appendChild(td);
+    tableBody.appendChild(row);
 }
 
 //Display Report Time options for date clicked - requires query database
@@ -147,21 +168,10 @@ function displayByTime(){
         let tableBody = document.getElementById("displayTableBody");
         let weatherInfo = JSON.parse(data[0].weatherinfo);
         let date = data[0].date;
-        document.getElementById("displayTableDate").innerHTML=date.substring(0, date.length-14);
-        document.getElementById("displayTableTime").innerHTML=data[0].time;
+        addRowContent(tableBody, "Fecha", date.substring(0, date.length-14));
+        addRowContent(tableBody, "Hora", data[0].time);
         for(const property in weatherInfo){
-            console.log(property+": "+weatherInfo[property]);
-            let row = document.createElement("tr");
-            let th = document.createElement("th");
-            th.setAttribute("scope", "row");
-            let td = document.createElement("td");
-            let node1 = document.createTextNode(property);
-            let node2 = document.createTextNode(weatherInfo[property]);
-            th.appendChild(node1);
-            td.appendChild(node2);
-            row.appendChild(th);
-            row.appendChild(td);
-            tableBody.appendChild(row);
+            addRowContent(tableBody, property, weatherInfo[property]);
         }
         let announcementString = "<strong>Anuncio:</strong> "+data[0].announcement;
         document.getElementById("displayTableAnnouncement").innerHTML=announcementString;

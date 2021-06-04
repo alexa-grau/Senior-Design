@@ -42,25 +42,23 @@ app.get('/users', (req, res) => {
 //get one user
 // how to call for certain user -> /users/phonenumber
 app.get('/users/:phonenumber/:password', (req, res) => {
-	console.log("get one user");
 	var sql = 'SELECT * FROM users WHERE phonenumber = ?';
 	con.query(sql, [req.params.phonenumber], (err, rows, fields) => {
 		if (!err) {
 			if(req.params.password != "none") {
 				if(rows.length == 0) {
-					console.log("user does not exist");
+					// phone number not found, user doesn't exist
+					res.send(200, []);
 				}
 				else {
 					if(rows[0].password) {
 						bcrypt.compare(req.params.password, rows[0].password, function(err, result) {
-							console.log((req.params.password).localeCompare(rows[0].password));
-							// bcrypt compare parameters should be entered password, hash, and function
-							// if(result) {
-							if((req.params.password).localeCompare(rows[0].password)==0){
-								console.log("Password matches!");
+							if(result) {
+								// password matches
 								res.send(rows);
 							} else {
-								console.log("Password doesn't match!");
+								// password doesn't match
+								res.send(200, false); // sends false so login can alert user
 							} 
 						});
 					}
@@ -197,15 +195,16 @@ app.post('/reports', (req, res) => {
 app.post('/incidents', (req, res) => {
 
 	let incident = req.body;
-
-	if(typeof incident.subject == "undefined") {
+	console.log("incident", incident);
+	// if(typeof incident.subject == "undefined") {
+	if(typeof incident.subject != "undefined") {
 		var sql = 'SET @sender = ?; SET @urgent = ?; SET @message = ?; SET @audio = ?; SET @image = ?; SET @subject = ?; SET @phoneNumber = ?; SET @comm1 = ?; SET @comm2 = ?; SET @comm3 = ?; SET @comm4 = ?; SET @comm5 = ?; SET @comm6 = ?; SET @comm7 = ?; SET @comm8 = ?; SET @comm9 = ?; SET @comm10 = ?; SET @comm11 = ?; SET @comm12 = ?; SET @comm13 = ?; SET @comm14 = ?; SET @allcomm = ?;\
 				CALL waterdb.AddNewIncident(@sender, @urgent, @message, @audio, @image, @subject, @phoneNumber, @comm1, @comm2, @comm3, @comm4, @comm5, @comm6, @comm7, @comm8, @comm9, @comm10, @comm11, @comm12, @comm13, @comm14, @allcomm);';
 		
 
 		con.query(sql, [incident.sender, incident.urgent, incident.message, incident.audio, incident.image, incident.subject, incident.phoneNumber, incident.comm1, incident.comm2, incident.comm3, incident.comm4, incident.comm5, incident.comm6, incident.comm7, incident.comm8, incident.comm9, incident.comm10, incident.comm11, incident.comm12, incident.comm13, incident.comm14, incident.allcomm], (err, rows, fields) => {
 			if (!err)
-				res.send('New incident inserted successfully');
+				res.send(200, 'New incident inserted successfully');
 			else
 				console.log(err);
 		});
@@ -217,7 +216,7 @@ app.post('/incidents', (req, res) => {
 	
 		con.query(sql, [1, incident.subject], (err, rows, fields) => {
 			if (!err)
-				res.send('Updated successfully');
+				res.send(200, 'Updated successfully');
 			else
 				console.log(err);
 		});
@@ -235,7 +234,7 @@ app.post('/mail', (req, res) => {
 
 	con.query(sql, [mail.body, mail.audio, mail.phoneNumber, mail.incidentIdNum, mail.subject, mail.oldMessage], (err, rows, fields) => {
 		if (!err)
-			res.send('New mail inserted successfully');
+			res.send(200, 'New mail inserted successfully');
 		else
 			console.log(err);
 	});
@@ -269,7 +268,7 @@ app.get('/weather', (req, res) => {
 //get all weather reports from one day
 app.get('/weather/:year/:month/:day', (req, res) => {
 	var date = req.params.year+"-"+req.params.month+"-"+req.params.day;
-	var sql = 'SELECT * FROM weather WHERE date BETWEEN ? AND ?;';
+	var sql = 'SELECT * FROM weather WHERE date BETWEEN ? AND ? ORDER BY time ASC;';
 	con.query(sql, [date, date], (err, rows, fields) => {
 		if (!err)
 			res.send(rows);

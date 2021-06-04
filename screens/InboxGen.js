@@ -17,9 +17,11 @@ export class InboxGen extends React.Component {
     };
 
     fetchData = async() => {
-        const response = await fetch ('http://10.0.0.13:3004/mail/' + UserProfile.getNumber());
-        const users = await response.json();
-        this.setState({data: users});
+        // const response = await fetch ('http://10.0.0.13:3004/mail/' + UserProfile.getNumber());
+        const response = await fetch ('http://localhost:3004/mail/' + UserProfile.getNumber());
+        const messages = await response.json();
+        this.setState({data: messages});
+        console.log("Inbox gen (messages):", messages);
     }
 
     // fetchNumber = async() => {
@@ -31,7 +33,8 @@ export class InboxGen extends React.Component {
     setRead (read, subject, date, body, oldMessage) {
         if(!read) {
             //updates incidents in database
-            fetch("http://10.0.0.13:3004/mail", {
+            // fetch("http://10.0.0.13:3004/mail", {
+            fetch("http://localhost:3004/mail", {
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({"subject":subject}),
@@ -42,10 +45,10 @@ export class InboxGen extends React.Component {
                 .catch(error => console.log('error', error));
         } 
         this.fetchData(); 
-
+        console.log(oldMessage);
         this.props.navigation.navigate('ViewMailMessage',
         {
-            senderPass: sender,
+            senderPass: UserProfile.getNumber(),
             datePass: date,
             bodyPass: body,
             oldMessPass: oldMessage
@@ -87,7 +90,7 @@ export class InboxGen extends React.Component {
                         </View>
                     </View>
 
-                    <Text style={styles.title}>Buzón de mensajes</Text>
+                    <Text style={styles.title}>Respuestas sobre sus informes</Text>
                     
                     <View style={styles.inboxBody}>
                         <FlatList inverted data={this.state.data} 
@@ -97,7 +100,8 @@ export class InboxGen extends React.Component {
                             initialScrollIndex={this.state.data.length - 1}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item, index }) =>
-                            <Button style={styles.message} onPress={() => this.setRead(item.readYn, item.subject, item.date, item.body, item.incidentIdNum, item.oldMessage) }>
+                            // <Button style={styles.message} onPress={() => this.setRead(item.readYn, item.subject, item.date, item.body, item.incidentIdNum, item.oldMessage) }>
+                            <Button style={styles.message} onPress={() => this.setRead(item.readYn, item.subject, item.date, item.body, item.oldMessage) }>
                                     <View style={styles.unread}>
                                     {item.readYn
                                         ? <Text></Text>

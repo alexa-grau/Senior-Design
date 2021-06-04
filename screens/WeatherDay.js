@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, Linking, FlatList } from 'react-na
 import { Form, Button } from "native-base"
 import styles from '../Style'
 
+
 export class WeatherDay extends React.Component {
     static navigationOptions = {
         title: 'WeatherDay',
@@ -46,21 +47,21 @@ export class WeatherDay extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.headerHome}>
-                    <TouchableOpacity
-                        onPress={() => Linking.openURL('https://www.asdenic.org')}>
-                        <Image source={require('../assets/asdenic.png')} style={styles.asdenicLogo}/>
-                    </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => Linking.openURL('https://www.asdenic.org')}>
+                    <Image source={require('../assets/asdenic.png')} style={styles.asdenicLogo}/>
+                </TouchableOpacity>
 
-                    <TouchableOpacity
-                        onPress={() => Linking.openURL('https://www.scu.edu/engineering/labs--research/labs/frugal-innovation-hub/')}>
-                        <Image source={require('../assets/frugalHub.png')} style={styles.frugalHubLogoHome}/>
-                    </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => Linking.openURL('https://www.scu.edu/engineering/labs--research/labs/frugal-innovation-hub/')}>
+                    <Image source={require('../assets/frugalHub.png')} style={styles.frugalHubLogoHome}/>
+                </TouchableOpacity>
 
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Welcome')}>
-                        <Text style={styles.logoutButton}>Cerrar sesión</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Welcome')}>
+                    <Text style={styles.logoutButton}>Cerrar sesión</Text>
+                </TouchableOpacity>
+            </View>
 
                 <View style={styles.pageContent}>
                     <Button style={styles.backButton}

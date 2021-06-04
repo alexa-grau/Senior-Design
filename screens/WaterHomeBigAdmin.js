@@ -53,17 +53,14 @@ export class WaterHomeBigAdmin extends React.Component {
                 </View>
 
                 <View style={styles.pageContent}>
-                    <View style={styles.subheader}>
-                        <View style={styles.leftHeader}>
-                            <Button style={styles.back}
-                                onPress={() => this.props.navigation.navigate('Home', { admin:true, bigAdmin:true })}>
-                                <Text style={styles.backText}>{'<'} Atrás</Text>
-                            </Button>
-                        </View>
+                    <View style={styles.leftHeader}>
+                        <Button style={styles.back}
+                            onPress={() => this.props.navigation.navigate('Home')}>
+                            <Text style={styles.backText}>{'<'} Atrás</Text>
+                        </Button>
                     </View>
 
-                    <View style={styles.subheader}>
-
+                    {/* <View style={styles.subheader}>
                         <View style={styles.rightHeader}>
                             <Button style={styles.add}
                                 onPress={() => this.props.navigation.navigate('CreateNewWaterQualityReport')}>
@@ -74,8 +71,17 @@ export class WaterHomeBigAdmin extends React.Component {
                                 <Image source={require('../assets/mail.png')} style={styles.mailPicture}/>
                             </Button>
                         </View>
+                    </View> */}
 
-                    </View>
+                    <TouchableOpacity style={styles.subheader}>
+                        <Button style={styles.add}
+                            onPress={() => this.props.navigation.navigate('CreateNewWaterQualityReport')}>
+                            <Text style={styles.addText}>+</Text>
+                        </Button>
+                        <TouchableOpacity style={styles.rightHeader} onPress={() => {this.props.navigation.navigate('InboxAdmin')}}>
+                                <Image source={require('../assets/mail.png')} style={styles.mailPicture}/>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
 
                     <Text style={styles.waterTitle}>AGUA</Text>
                     <Form style={styles.waterForm}>

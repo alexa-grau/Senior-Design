@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView, FlatList, Linking } fr
 import { Form, Button } from 'native-base'
 import styles from '../Style'
 
+
 export class WaterHomeAdmin extends React.Component {
     static navigationOptions = {
         title: 'WaterHomeAdmin',
@@ -32,34 +33,32 @@ export class WaterHomeAdmin extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => Linking.openURL('https://www.asdenic.org')}>
-                        <Image source={require('../assets/asdenic.png')} style={styles.asdenicLogo}/>
-                    </TouchableOpacity>
+                <View style={styles.headerHome}>
+                <TouchableOpacity
+                    onPress={() => Linking.openURL('https://www.asdenic.org')}>
+                    <Image source={require('../assets/asdenic.png')} style={styles.asdenicLogo}/>
+                </TouchableOpacity>
 
-                    <TouchableOpacity
-                        onPress={() => Linking.openURL('https://www.scu.edu/engineering/labs--research/labs/frugal-innovation-hub/')}>
-                        <Image source={require('../assets/frugalHub.png')} style={styles.frugalHubLogo}/>
-                    </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => Linking.openURL('https://www.scu.edu/engineering/labs--research/labs/frugal-innovation-hub/')}>
+                    <Image source={require('../assets/frugalHub.png')} style={styles.frugalHubLogoHome}/>
+                </TouchableOpacity>
 
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Welcome')}>
-                        <Text style={styles.logoutButton}>Cerrar sesión</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Welcome')}>
+                    <Text style={styles.logoutButton}>Cerrar sesión</Text>
+                </TouchableOpacity>
+            </View>
 
                 <View style={styles.pageContent}>
-                    <View style={styles.subheader}>
-                        <View style={styles.leftHeader}>
-                            <Button style={styles.back}
-                                onPress={() => this.props.navigation.navigate('Home', { admin:true, bigAdmin:false })}>
-                                <Text style={styles.backText}>{'<'} Atrás</Text>
-                            </Button>
-                        </View>
+                    <View style={styles.leftHeader}>
+                        <Button style={styles.back}
+                            onPress={() => this.props.navigation.navigate('Home')}>
+                            <Text style={styles.backText}>{'<'} Atrás</Text>
+                        </Button>
                     </View>
 
-                    <View style={styles.subheader}>
+                    {/* <View style={styles.subheader}>
 
                         <View style={styles.rightHeader}>
                             <Button style={styles.add}
@@ -72,7 +71,27 @@ export class WaterHomeAdmin extends React.Component {
                             </Button>
                         </View>
 
-                    </View>
+                    </View> */}
+
+                    {/* <TouchableOpacity style={styles.subheader}>
+                        <Button style={styles.add}
+                            onPress={() => this.props.navigation.navigate('CreateNewWaterQualityReport')}>
+                            <Text style={styles.addText}>+</Text>
+                        </Button>
+                        <TouchableOpacity style={styles.rightHeader} onPress={() => {this.props.navigation.navigate('InboxAdmin')}}>
+                                <Image source={require('../assets/mail.png')} style={styles.mailPicture}/>
+                        </TouchableOpacity>
+                    </TouchableOpacity> */}
+
+                    <TouchableOpacity style={styles.subheader}>
+                        <Button style={styles.add}
+                            onPress={() => this.props.navigation.navigate('CreateNewWaterQualityReport')}>
+                            <Text style={styles.addText}>+</Text>
+                        </Button>
+                        <TouchableOpacity style={styles.rightHeader} onPress={() => {this.props.navigation.navigate('InboxAdmin')}}>
+                                <Image source={require('../assets/mail.png')} style={styles.mailPicture}/>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
 
                     <Text style={styles.waterTitle}>AGUA</Text>
                     <Form style={styles.waterForm}>

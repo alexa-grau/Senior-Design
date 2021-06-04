@@ -1,7 +1,12 @@
 let selectedFile;
 console.log(window.XLSX);
-document.getElementById('input').addEventListener("change", (event) => {
+bsCustomFileInput.init();
+
+document.getElementById('customFileLangHTML').addEventListener("change", (event) => {
+    console.log("test");
     selectedFile = event.target.files[0];
+    document.getElementById('labelCustomFileLangHTML').style.overflow='hidden';
+    console.log(selectedFile);
     //selectedFile = csvConverter(selectedFile);
 })
 
@@ -15,6 +20,7 @@ let data=[{
 
 
 document.getElementById('button').addEventListener("click", () => {
+    console.log("click 1")
     document.getElementById('mtable').style.display = "";
     document.getElementById('indicatorChecklist').style.display = "";
     document.getElementById('newAnnouncement').style.display = "";
@@ -209,7 +215,7 @@ document.getElementById('reportTime').addEventListener("input", () => { //read d
 
 
 document.getElementById('button').addEventListener("click", () => {
-
+    document.getElementById('reportSettings').style.display = "";
     XLSX.utils.json_to_sheet(data, 'out.xlsx');
     if(selectedFile){
         let count = 0;

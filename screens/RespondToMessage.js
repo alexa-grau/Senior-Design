@@ -23,7 +23,8 @@ export default class RespondToMessage extends React.Component {
         }
         console.log('this is the old message: ' + this.props.navigation.state.params.oldMessPass)
 		//inserts new mail into database
-		fetch("http://10.0.0.123:3004/mail", {
+		// fetch("http://10.0.0.123:3004/mail", {
+		fetch("http://localhost:3004/mail", {
 			method: 'POST',
 			headers: {"Content-Type": "application/json"},
 			body: JSON.stringify({"body":this.state.body,"audio":this.state.audio,"phoneNumber":this.props.navigation.state.params.phoneNumPass,"incidentIdNum":this.props.navigation.state.params.idNumPass, "subject":this.props.navigation.state.params.subjectPass, "oldMessage":this.props.navigation.state.params.oldMessPass}),

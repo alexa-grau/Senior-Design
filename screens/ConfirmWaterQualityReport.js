@@ -30,7 +30,7 @@ export default class CreateNewWaterQualityReport extends React.Component {
 
 								<TouchableOpacity style={styles.confirmReportBackButton}
 									onPress={() => this.props.navigation.navigate('WaterHomeGen')}>
-									<Text style={{fontSize: 20, color: 'white'}}>Pagina principal</Text>
+									<Text style={{fontSize: 20, color: 'white'}}>Atrás a Agua</Text>
 								</TouchableOpacity>
 
 					</View>

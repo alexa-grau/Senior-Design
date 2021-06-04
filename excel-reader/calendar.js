@@ -114,7 +114,6 @@ function displayReports(displayDay) {
     }
     let displayDate = (displayYear + "-" + displayMonth + "-" + displayDay);
     let URL = "http://localhost:3004/weather/"+displayYear+"/"+displayMonth+"/"+displayDay;
-    console.log("URL:", URL);
     let buttonDiv = document.getElementById("timeButtons");
     $.get(URL, function(data){
         let table = document.getElementById("reportWholeTable");
@@ -125,8 +124,7 @@ function displayReports(displayDay) {
             document.getElementById("displayTableAnnouncement").innerHTML = '';
         } else{
             table.style.display = '';
-            data.forEach(element => 
-                {console.log(element.time);
+            data.forEach(element => {
                 let button = document.createElement("button");
                 let textnode = document.createTextNode(element.time);
                 button.id=element.id;
@@ -134,8 +132,8 @@ function displayReports(displayDay) {
                 button.classList.add("btn-outline-primary");
                 button.addEventListener("click", displayByTime);
                 button.appendChild(textnode);
-                buttonDiv.appendChild(button);}
-            );
+                buttonDiv.appendChild(button);
+            });
         }
         
       });
@@ -162,10 +160,10 @@ function addRowContent(tableBody, s1, s2){
 
 //Display Report Time options for date clicked - requires query database
 function displayByTime(){
-    console.log(this.id);
     let URL = "http://localhost:3004/weather/"+this.id;
     $.get(URL, function(data){
         let tableBody = document.getElementById("displayTableBody");
+        tableBody.innerHTML=""; // clear to start
         let weatherInfo = JSON.parse(data[0].weatherinfo);
         let date = data[0].date;
         addRowContent(tableBody, "Fecha", date.substring(0, date.length-14));

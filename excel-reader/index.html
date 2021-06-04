@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -8,12 +8,13 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
         crossorigin="anonymous">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <title>Convert excel to JSON Object</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+    <!-- <script src="../node_modules/bs-custom-file-input/"></script> -->
 
     <style>
         .hover:hover{
@@ -149,19 +150,21 @@
     
     <div class="container mt-5">
         <h1>Crear Nuevo Informe Meteorológico</h1>
-        <div class="row">
-              <div class="col-md-4">
-                  <input class="form-control" type="file" id="input" accept=".xls,.xlsx,.csv">
-              </div>
-              <div class="col-md-4">
-                <label for="reportTime">Elige un momento desde el que subir:</label>
-                <input type="datetime-local" id="reportTime" name="reportTime" min="2018-01-01T00:00" max="2025-06-14T00:00">
-              </div>
-              <div class="col-md-4">
-                <button class="btn btn-primary" id="button">Subir</button>
-              </div>
+        <div id="uploadForm" class="form-group row">
+          <div class="col-md-4 custom-file">
+              <input type="file" class="custom-file-input" id="customFileLangHTML" accept=".xls,.xlsx,.csv">
+              <label class="custom-file-label" for="customFileLangHTML" id="labelCustomFileLangHTML" data-browse="Elegir">Seleccionar Archivo</label>
           </div>
-<div>
+          <div class="col-md-4">
+            <label for="reportTime">Elige un momento desde el que subir:</label>
+            <input type="datetime-local" id="reportTime" name="reportTime" min="2018-01-01T00:00" max="2025-06-14T00:00">
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-primary" id="button">Subir</button>
+          </div>
+        </div>
+    </div>
+<div id="reportSettings">
 
     <!-- Display JSON -->
     <pre id="jsondata"></pre>
@@ -292,7 +295,7 @@
               <!-- checkboxes -->
               <div class="col-md-5" id="indicatorChecklist" style="display:none;">
                 <fieldset style="height:400px;overflow: scroll">
-                  <legend>Select Weather Indicators</legend>
+                  <legend>Seleccionar indicadores meteorológicos</legend>
                   <input type="checkbox" name="Bar" id="barometer" value="1" onclick="return validate();" checked>Barómetro - in Hg<br>
                   <input type="checkbox" name="Temp" id="temp" value="1" onclick="return validate();" checked>Temp - °C<br>
                   <input type="checkbox" name="TempHigh" id="tempHigh" value="1" onclick="return validate();" checked>Temp. Alta - °C<br>
@@ -318,11 +321,11 @@
             </div>
             <br>
             <div id="newAnnouncement" style="display:none;">
-              <textarea id="announcement" name="announcement" rows="5" cols="150" placeholder="Announcements"></textarea>
+              <textarea id="announcement" name="announcement" rows="5" cols="150" placeholder="Anuncio"></textarea>
               <button class="btn btn-primary" id="submit">Enviar</button>
             </div>
         <div id="success" style="display:none">
-            <p>¡Éxito! Se ha subido el informe meteorológico.p>
+            <p>¡Éxito! Se ha subido el informe meteorológico.</p>
         </div>
     <br>
     <br>

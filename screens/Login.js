@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Linking, Alert } from 'react-native'
 import { Item, Form, Input, Button, Label } from "native-base"
 import styles from '../Style'
 import SendSMS from 'react-native-sms'
@@ -21,26 +21,6 @@ export class Login extends React.Component {
         };
     }
 
-    // getReports = () => {
-
-    //     fetch("http://10.0.0.123:3004/reports", {
-    //         method: 'GET',
-    //         redirect: 'follow'
-    //     })
-    //         .then(response => response.json())
-    //         .then(result => {   //console.log(result);
-    //                             this.state.reports = result;
-    //                             console.log(this.state.reports);
-    //                             this.props.navigation.navigate('WaterHome', {
-    //                                 report: this.state.reports,
-    //                             })
-    //                         })
-    //         .catch(error => console.log('error', error));    
-    // }
-
-
-
-
     correctLogin = async() => {
         var checkNum = this.state.phoneNum;
         var checkPass = this.state.password;
@@ -57,46 +37,41 @@ export class Login extends React.Component {
         })
             .then(response => response.json())
             .then(result => {   
-                                //console.log(typeof result);
-                                if (result.length == 0)
-                                {
-                                    alert('No coinciden la contraseña y el número de teléfono.');
-                                    return;
-                                    // console.log('no user exists with this phone number, cannot login');
-                                    // alert('Existe ningún usuario con este número de teléfono. Volver a intentar o crear una cuenta.');
+                                if(typeof(result)=='boolean'){
+                                    // incorrect password
+                                    Alert.alert('', 'No coinciden la contraseña y el número de teléfono.');
                                 }
-                                else
-                                {
+                                else if (result.length == 0) {
+                                    // no user found
+                                    Alert.alert('', 'Existe ningún usuario con este número de teléfono. Volver a intentar o crear una cuenta.');
+                                    return;
+                                }
+                                else {
                                     console.log('user exists');
-
-                                    // if (MyBcrypt.comparePass(this.state.password, result[0].password))
-                                    //     //MyBcrypt.comparePass(this.state.password, result[0].password)
-                                    // {
-                                        if (result[0].mainAdmin == 1)
-                                        {
-                                            // this.props.navigation.navigate('WaterHomeBigAdmin');
-                                            // this.props.navigation.navigate('Home');
-                                            this.props.navigation.navigate('Home', { admin:true, bigAdmin:true });
-                                        }
-                                        else if (result[0].givenAdminRights == 0)
-                                        {
-                                            // this._saveInfo();
-                                            console.log("General user");
-                                            this.props.navigation.navigate({ admin:false, bigAdmin:false });
-                                        }
-                                        else
-                                        {
-                                            // this._saveInfo();
-                                            // this.props.navigation.navigate('WaterHomeAdmin');
-                                            this.props.navigation.navigate('Home');
-                                            this.props.navigation.navigate('Home', { admin:true, bigAdmin:false });
-                                        }
-                                    // }
-                                    // else
-                                    // {
-                                    //     alert('No coinciden la contraseña y el número de teléfono.');
-                                    //     return;
-                                    // }
+                                    if (result[0].mainAdmin == 1)
+                                    {
+                                        // main admin
+                                        this.state.bigAdmin = true;
+                                        this.state.genUser = false;
+                                        this._saveInfo();
+                                        this.props.navigation.navigate('Home');
+                                    }
+                                    else if (result[0].givenAdminRights == 0)
+                                    {
+                                        // general user
+                                        this.state.bigAdmin = false;
+                                        this.state.genUser = true;
+                                        this._saveInfo();
+                                        this.props.navigation.navigate('Home');
+                                    }
+                                    else
+                                    {
+                                        // admin
+                                        this.state.bigAdmin = false;
+                                        this.state.genUser = false;
+                                        this._saveInfo();
+                                        this.props.navigation.navigate('Home');
+                                    }
                                 }
                             })
             .catch(error => console.log('error', error));
@@ -116,21 +91,32 @@ export class Login extends React.Component {
         // });
 
         const isAvailable = await Expo.SMS.isAvailableAsync();
-            if (isAvailable) {
-              const { result } = await Expo.SMS.sendSMSAsync(['123456789'], 'test1234');
-            }
+        if (isAvailable) {
+            const { result } = await Expo.SMS.sendSMSAsync(['12345678'], 'test1234');
+            console.log(result);
+        }
     }
 
     _saveInfo() {
         console.log(this.state.phoneNum);
         UserProfile.setNumber(this.state.phoneNum);
+        console.log("Login state", this.state);
         if(this.state.bigAdmin){
+            // main admin
             UserProfile.setMainAdmin(1);
+            UserProfile.setGenUser(0);
+        }
+        else if(this.state.genUser){
+            // gen user
+            UserProfile.setMainAdmin(0);
+            UserProfile.setGenUser(1);
+        }
+        else {
+            // admin
+            UserProfile.setMainAdmin(0);
+            UserProfile.setGenUser(0);
         }
     }
-    // componentDidMount () {
-    //     this.correctLogin();
-    // }
     
     render() {
         return (

@@ -172,7 +172,8 @@ export default class ReportWaterQuality extends React.Component {
         console.log('This is the number stored: ' + this.state.number);
 
 		//inserts new incident into database
-		fetch("http://10.0.0.123:3004/incidents", {
+		// fetch("http://10.0.0.123:3004/incidents", {
+		fetch("http://localhost:3004/incidents", {
 			method: 'POST',
 			headers: {"Content-Type": "application/json"},
 			body: JSON.stringify({"sender":this.state.sender,"urgent":this.state.urgent,"message":this.state.message,"audio":this.state.audio,"image":this.state.image, "subject":this.state.subject, "phoneNumber":this.state.number, "comm1":this.state.comm1, "comm2":this.state.comm2, "comm3":this.state.comm3, "comm4":this.state.comm4, "comm5":this.state.comm5, "comm6":this.state.comm6, "comm7":this.state.comm7, "comm8":this.state.comm8, "comm9":this.state.comm9, "comm10":this.state.comm10, "comm11":this.state.comm11, "comm12":this.state.comm12, "comm13":this.state.comm13, "comm14":this.state.comm14, "allcomm":this.state.allcomm}),

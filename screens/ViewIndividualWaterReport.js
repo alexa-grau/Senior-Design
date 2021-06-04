@@ -21,18 +21,11 @@ export default class ViewIndividualWaterReport extends React.Component {
 	};
 
 	regOrMain = () => {
-		console.log('main admin? ' + UserProfile.getMainAdmin());
-
-		if (UserProfile.getMainAdmin() == 1)
-		{
+		if (UserProfile.getMainAdmin() == 1) {
 			this.props.navigation.navigate('WaterHomeBigAdmin');
-		}
-		else if (UserProfile.getGenUser() == 1)
-		{
+		} else if (UserProfile.getGenUser() == 1) {
 			this.props.navigation.navigate('WaterHomeGen');
-		}
-		else
-		{
+		} else {
 			this.props.navigation.navigate('WaterHomeAdmin');
 		}
 	}

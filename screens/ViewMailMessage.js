@@ -91,12 +91,12 @@ export default class ViewMailMessage extends React.Component {
 							</ScrollView>
 						</View>
 
-						<View style={styles.viewMessButtons}>
+						{/* <View style={styles.viewMessButtons}>
 
 							<TouchableOpacity style={styles.viewMessPublishButton}>
 								<Text style={{fontSize: 17, color: 'white'}}>Back</Text>
 							</TouchableOpacity> 
-						</View>
+						</View> */}
 
 					</View>
 				</View>

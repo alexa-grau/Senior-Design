@@ -14,7 +14,8 @@ export class GiveAdminRights extends React.Component {
     };
 
     fetchData = async() => {
-        const response = await fetch ('http://10.0.0.123:3004/users');
+        // const response = await fetch ('http://10.0.0.123:3004/users');
+        const response = await fetch ('http://localhost:3004/users');
         const users = await response.json();
         this.setState({data: users});
     }
@@ -23,7 +24,8 @@ export class GiveAdminRights extends React.Component {
         for(let i = 0; i < this.state.data.length; i++) {
             if(this.state.data[i].givenAdminRights == true) {
                 //updates users in database
-                fetch("http://10.0.0.13:3004/users", {
+                // fetch("http://10.0.0.13:3004/users", {
+                fetch("http://localhost:3004/users", {
                     method: 'POST',
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({"phonenumber":this.state.data[i].phonenumber}),
@@ -70,6 +72,10 @@ export class GiveAdminRights extends React.Component {
                 </View>
 
                 <View style={styles.pageContent}>
+                    <Button style={styles.backButton}
+                        onPress={() => this.props.navigation.navigate('Home')}>
+                        <Text style={styles.backText}>{'<'} Atrás</Text>
+                    </Button>
 
                     <Text style={styles.adminRightsTitle}>Dar Acceso de admin</Text>
                     <Form style={styles.waterForm}>

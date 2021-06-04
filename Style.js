@@ -60,6 +60,11 @@ export default StyleSheet.create({
         height: 700,
     },
 
+    scrollView: {
+        height: 300,
+        // overflow: 'hidden'
+    },
+
     //blue footer band for all pages
     footer: {
         backgroundColor: "#4a8eff",
@@ -614,6 +619,7 @@ export default StyleSheet.create({
     weatherForm: {
         justifyContent: 'center',
         margin: 50,
+        marginTop: 20
     },
 
     tableText: {
@@ -663,7 +669,7 @@ export default StyleSheet.create({
     },
 
     leftHeader: {
-        width: 100
+        width: 100,
     },
 
     rightHeader: {
@@ -687,7 +693,8 @@ export default StyleSheet.create({
 
     add: {
         marginTop: 10,
-        marginRight: 20,
+        // marginRight: 20,
+        marginLeft: 20,
         backgroundColor: 'white'
     },
 
@@ -697,6 +704,7 @@ export default StyleSheet.create({
 
     mail: {
         marginTop: 10,
+        marginLeft: 20,
         backgroundColor: 'white'
     },
 

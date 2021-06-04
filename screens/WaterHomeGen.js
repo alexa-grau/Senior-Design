@@ -53,25 +53,18 @@ export class WaterHomeGen extends React.Component {
                 </View>
 
                 <View style={styles.pageContent}>
-                    <View style={styles.subheader}>
-                        <View style={styles.leftHeader}>
-                            <Button style={styles.back}
-                                onPress={() => this.props.navigation.navigate('Home', { admin:false, bigAdmin:false })}>
-                                <Text style={styles.backText}>{'<'} Atrás</Text>
-                            </Button>
-                        </View>
+                    <View style={styles.leftHeader}>
+                        <Button style={styles.back}
+                            onPress={() => this.props.navigation.navigate('Home')}>
+                            <Text style={styles.backText}>{'<'} Atrás</Text>
+                        </Button>
                     </View>
 
-                    <View style={styles.subheader}>
-
-                        <View style={styles.rightHeader}>
-                            <Button style={styles.mail}
-                                onPress={() => this.props.navigation.navigate('InboxGen')}>
+                    <TouchableOpacity style={styles.subheader}>
+                        <TouchableOpacity style={styles.rightHeader} onPress={() => this.props.navigation.navigate('InboxGen')}>
                                 <Image source={require('../assets/mail.png')} style={styles.mailPicture}/>
-                            </Button>
-                        </View>
-
-                    </View>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
 
                     <Text style={styles.waterTitle}>AGUA</Text>
                     <Form style={styles.waterForm}>

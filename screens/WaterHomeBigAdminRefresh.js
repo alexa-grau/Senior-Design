@@ -2,7 +2,8 @@ import React from 'react'
 import { View, Text, Image, TouchableOpacity, ScrollView, FlatList, Linking } from 'react-native'
 import { Form, Button } from 'native-base'
 import styles from '../Style'
-import UserProfile from '../UserProfile';
+import UserProfile from '../UserProfile'
+
 
 export class WaterHomeBigAdminRefresh extends React.Component {
     static navigationOptions = {
@@ -15,7 +16,8 @@ export class WaterHomeBigAdminRefresh extends React.Component {
     };
 
     fetchData = async() => {
-        const response = await fetch ('http://10.0.0.123:3004/reports');
+        // const response = await fetch ('http://10.0.0.123:3004/reports');
+        const response = await fetch ('http://localhost:3004/reports');
         const users = await response.json();
         this.setState({data: users});
         console.log(this.state.data[0].date);
@@ -32,27 +34,26 @@ export class WaterHomeBigAdminRefresh extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => Linking.openURL('https://www.asdenic.org')}>
-                        <Image source={require('../assets/asdenic.png')} style={styles.asdenicLogo}/>
-                    </TouchableOpacity>
+                <View style={styles.headerHome}>
+                <TouchableOpacity
+                    onPress={() => Linking.openURL('https://www.asdenic.org')}>
+                    <Image source={require('../assets/asdenic.png')} style={styles.asdenicLogo}/>
+                </TouchableOpacity>
 
-                    <TouchableOpacity
-                        onPress={() => Linking.openURL('https://www.scu.edu/engineering/labs--research/labs/frugal-innovation-hub/')}>
-                        <Image source={require('../assets/frugalHub.png')} style={styles.frugalHubLogo}/>
-                    </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => Linking.openURL('https://www.scu.edu/engineering/labs--research/labs/frugal-innovation-hub/')}>
+                    <Image source={require('../assets/frugalHub.png')} style={styles.frugalHubLogoHome}/>
+                </TouchableOpacity>
 
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Welcome')}>
-                        <Text style={styles.logoutButton}>Cerrar sesión</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Welcome')}>
+                    <Text style={styles.logoutButton}>Cerrar sesión</Text>
+                </TouchableOpacity>
+            </View>
 
                 <View style={styles.pageContent}>
 
-                    <View style={styles.subheader}>
-
+                    {/* <View style={styles.subheader}>
                         <View style={styles.rightHeader}>
                             <Button style={styles.add}
                                 onPress={() => this.props.navigation.navigate('CreateNewWaterQualityReport')}>
@@ -63,8 +64,17 @@ export class WaterHomeBigAdminRefresh extends React.Component {
                                 <Image source={require('../assets/mail.png')} style={styles.mailPicture}/>
                             </Button>
                         </View>
+                    </View> */}
 
-                    </View>
+                    <TouchableOpacity style={styles.subheader}>
+                        <Button style={styles.add}
+                            onPress={() => this.props.navigation.navigate('CreateNewWaterQualityReport')}>
+                            <Text style={styles.addText}>+</Text>
+                        </Button>
+                        <TouchableOpacity style={styles.rightHeader} onPress={() => {this.props.navigation.navigate('InboxAdmin')}}>
+                                <Image source={require('../assets/mail.png')} style={styles.mailPicture}/>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
 
                     <Text style={styles.waterTitle}>AGUA</Text>
                     <Form style={styles.waterForm}>
